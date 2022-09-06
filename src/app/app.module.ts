@@ -13,6 +13,9 @@ import { CampaignsModule } from './features/campaigns/campaigns.module';
 import { CatalogsModule } from './features/catalogs/catalogs.module';
 import { ProductsModule } from './features/products/products.module';
 import { OrdersModule } from './features/orders/orders.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +33,8 @@ import { OrdersModule } from './features/orders/orders.module';
     ProductsModule,
     OrdersModule,
     OffersModule,
+    BrowserAnimationsModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent],

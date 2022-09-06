@@ -34,7 +34,7 @@ import { TableScrollComponent } from './components/table-scroll/table-scroll.com
 import { TableAccordionHeaderComponent } from './components/table-accordion-header/table-accordion-header.component';
 import { StoreModule } from '@ngrx/store';
 import { sharedReducers } from './store/shared.reducers';
-
+import { TextMaskModule } from 'angular2-text-mask';
 @NgModule({
   declarations: [
     OverlayTitleComponent,
@@ -72,6 +72,7 @@ import { sharedReducers } from './store/shared.reducers';
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(sharedReducers),
+    TextMaskModule
   ],
   exports: [
     OverlayTitleComponent,

@@ -10,38 +10,88 @@
   <div class="e-input-container">
     <form [formGroup]="searchForm">
       <label class="e-label mt-4">NATIONALITY ID</label>
-      <input type="number" etiyaInput="dark" formControlName="nationalityId" #nationalityId/>
+      <input
+        type="number"
+        etiyaInput="dark"
+        formControlName="nationalityId"
+        onKeyPress="if(this.value.length==7) return false;"
+        #nationalityId
+      />
 
       <label class="e-label">CUSTOMER ID</label>
-      <input type="number" etiyaInput="dark" formControlName="customerId" #customerId/>
+      <input
+        type="number"
+        etiyaInput="dark"
+        formControlName="customerId"
+        onKeyPress="if(this.value.length==7) return false;"
+        #customerId
+      />
 
       <label class="e-label">ACCOUNT NUMBER</label>
-      <input type="text" etiyaInput="dark" formControlName="accountNumber" #accountNumber/>
+      <input
+        type="number"
+        etiyaInput="dark"
+        formControlName="accountNumber"
+        onKeyPress="if(this.value.length==10) return false;"
+        #accountNumber
+      />
 
       <label class="e-label">GSM NUMBER</label>
-      <input type="text" etiyaInput="dark" formControlName="gsmNumber" maxlength="11" #gsmNumber/>
+      <input
+      [textMask]="{mask: phoneMask}" 
+        type="text"
+        etiyaInput="dark"
+        formControlName="gsmNumber"
+        onKeyPress="if(this.value.length==10) return false;"
+        #gsmNumber
+      />
 
       <label class="e-label">FIRST NAME</label>
-      <input type="text" etiyaInput="dark" formControlName="firstName" maxlength="50" #firstName/>
+      <input
+        type="text"
+        etiyaInput="dark"
+        formControlName="firstName"
+        minlength="2"
+        maxlength="50"
+        #firstName
+      />
 
       <label class="e-label">LAST NAME</label>
-      <input type="text" etiyaInput="dark" formControlName="lastName" maxlength="50" #lastName/>
+      <input
+        type="text"
+        etiyaInput="dark"
+        formControlName="lastName"
+        minlength="2"
+        maxlength="50"
+        #lastName
+      />
 
       <label class="e-label">ORDER NUMBER</label>
-      <input type="text" etiyaInput="dark" formControlName="orderNumber" #orderNumber/>
+      <input
+        type="number"
+        etiyaInput="dark"
+        formControlName="orderNumber"
+        onKeyPress="if(this.value.length==8) return false;"
+        #orderNumber
+      />
     </form>
   </div>
   <div class="e-btn-container">
     <button type="button" etiyaButton="clear" (click)="clear()">CLEAR</button>
-    <button type="button" etiyaButton="search" (click)="search()" [disabled]="
-    nationalityId.value.length === 0 &&
-    customerId.value.length === 0 &&
-    accountNumber.value.length === 0 &&
-    gsmNumber.value.length === 0 &&
-    firstName.value.length === 0 &&
-    lastName.value.length === 0 &&
-    orderNumber.value.length === 0
-  ">
+    <button
+      type="button"
+      etiyaButton="search"
+      (click)="search()"
+      [disabled]="
+        nationalityId.value.length === 0 &&
+        customerId.value.length === 0 &&
+        accountNumber.value.length === 0 &&
+        gsmNumber.value.length === 0 &&
+        firstName.value.length === 0 &&
+        lastName.value.length === 0 &&
+        orderNumber.value.length === 0
+      "
+    >
       SEARCH<img
         etiyaButton="img-search"
         src="../assets/img/search-btn-logo.png"

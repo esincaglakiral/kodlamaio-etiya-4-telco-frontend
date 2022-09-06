@@ -12,3 +12,6 @@ body {
   background-size: 1520px 1610px;
   overflow-x: hidden;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

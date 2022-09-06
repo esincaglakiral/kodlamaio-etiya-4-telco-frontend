@@ -87,6 +87,10 @@ add new adress */
     color: #FFFFFF;
 }
 
+.e-btn-search:disabled {
+    opacity: 0.5;
+  }
+
 .e-btn-img-search {
     width: 36px;
 }

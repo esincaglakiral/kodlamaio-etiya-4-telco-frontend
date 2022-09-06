@@ -11,6 +11,7 @@ export class SideFilterComponent implements OnInit {
   @Input() filterTitle!: string;
   searchForm!: FormGroup;
   @Output() filteredData: any = new EventEmitter();
+  phoneMask :any = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   constructor(
     private formBuilder: FormBuilder,
     private customersService: CustomersService
@@ -38,6 +39,7 @@ export class SideFilterComponent implements OnInit {
       ...this.searchForm.value,
       nationalityId: nationalityId,
     };
+    console.log(nationalityId)
     this.customersService
       .getListByFilter(newSearchForm)
       .subscribe((data) => {

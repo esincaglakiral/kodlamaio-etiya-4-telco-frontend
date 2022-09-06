@@ -30,8 +30,22 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
+                    aria-describedby="firstName-help"
+                    maxlength="50"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && profileForm.controls['lastName'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && profileForm.controls['lastName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 380px; margin-top: -20px"
+                >
+                  compulsory fields must be filled.
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -48,6 +62,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="middleName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -66,8 +81,21 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="lastName"
+                    maxlength="50"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && profileForm.controls['lastName'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && profileForm.controls['lastName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 380px; margin-top: -20px"
+                >
+                  compulsory fields must be filled.
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -84,8 +112,20 @@
                     type="date"
                     etiyaInput="dark"
                     formControlName="birthDate"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && profileForm.controls['lastName'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && profileForm.controls['lastName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 380px; margin-top: -20px"
+                >
+                  compulsory fields must be filled.
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -99,12 +139,30 @@
                   class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center"
                 >
                   <div class="e-dropdown">
-                    <select name="gender" id="gender" formControlName="gender">
-                      <option selected value="Female">Female</option>
+                    <select
+                      name="gender"
+                      id="gender"
+                      formControlName="gender"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && profileForm.controls['lastName'].errors
+                      }"
+                    >
+                      <option selected disabled value="">Select</option>
+                      <option value="Female">Female</option>
                       <option value="Male">Male</option>
+                      <option value="Male">Other</option>
                     </select>
                   </div>
                 </div>
+                <small
+                  *ngIf="isShow && profileForm.controls['lastName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 380px; margin-top: 11px"
+                >
+                  compulsory fields must be filled.
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -121,6 +179,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fatherName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -139,6 +198,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="motherName"
+                    maxlength="50"
                   />
                 </div>
               </div>
@@ -154,18 +214,31 @@
                   class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center"
                 >
                   <input
-                    type="text"
+                    type="number"
                     etiyaInput="dark"
                     formControlName="nationalityId"
+                    onKeyPress="if(this.value.length==11) return false;"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && profileForm.controls['lastName'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && profileForm.controls['lastName'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 380px; margin-top: -20px"
+                >
+                  compulsory fields must be filled.
+                </small>
               </div>
             </div>
           </div>
         </form>
       </div>
       <div class="d-flex justify-content-center">
-        <div class="row mt-5 w-75">
+        <div class="row mt-3 w-75">
           <div class="col-12 col-lg-6 d-flex justify-content-lg-start">
             <button
               etiyaButton="clear"
@@ -174,17 +247,8 @@
               CANCEL
             </button>
           </div>
-          <div
-            *ngIf="!profileForm.invalid"
-            class="col-12 col-lg-5 d-flex justify-content-lg-end"
-          >
+          <div class="col-12 col-lg-5 d-flex justify-content-lg-end">
             <button etiyaButton="clear" (click)="goNextPage()">NEXT</button>
-          </div>
-          <div
-            *ngIf="profileForm.invalid"
-            class="col-12 col-lg-5 d-flex justify-content-lg-end"
-          >
-            <button etiyaButton="clear-disabled" disabled>NEXT</button>
           </div>
         </div>
       </div>

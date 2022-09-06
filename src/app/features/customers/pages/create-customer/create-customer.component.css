@@ -66,3 +66,12 @@ input[type='date'] {
 input::placeholder {
   color: #fff;
 }
+
+.invalid-input {
+  border-color: red!important;
+}
+
+small{
+  font-weight: 200!important;
+  font-size: 15px!important;
+}
