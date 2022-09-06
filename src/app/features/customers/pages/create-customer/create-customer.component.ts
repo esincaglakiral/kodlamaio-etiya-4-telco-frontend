@@ -43,7 +43,8 @@ export class CreateCustomerComponent implements OnInit {
       gender: [this.customer.gender ?? 'Female', Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
-      nationalityId: [this.customer.nationalityId, Validators.required],
+      nationalityId: [this.customer.nationalityId,
+        [Validators.required, Validators.minLength(11)],],
     });
   }
   goNextPage() {

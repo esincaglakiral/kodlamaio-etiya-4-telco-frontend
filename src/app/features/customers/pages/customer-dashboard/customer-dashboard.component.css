@@ -21,3 +21,11 @@
 ::ng-deep .table.e-table .table-body tr th a {
   cursor: pointer;
 }
+
+
+::ng-deep .e-btn-new-address{
+  border: 1px solid white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+}
