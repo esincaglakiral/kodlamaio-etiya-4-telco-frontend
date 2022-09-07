@@ -14,26 +14,31 @@
         type="text"
         etiyaInput="dark"
         formControlName="nationalityId"
-        (keypress)="isNationalId($event)"
+        (keypress)="isNumberId($event)"
         onKeyPress="if(this.value.length==11) return false;"
+        max="99999999999"
         #nationalityId
       />
 
       <label class="e-label">CUSTOMER ID</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="customerId"
+        (keypress)="isNumberId($event)"
         onKeyPress="if(this.value.length==7) return false;"
+        max="9999999"
         #customerId
       />
 
       <label class="e-label">ACCOUNT NUMBER</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="accountNumber"
+        (keypress)="isNumberId($event)"
         onKeyPress="if(this.value.length==10) return false;"
+        max="9999999999"
         #accountNumber
       />
 
@@ -44,6 +49,7 @@
         etiyaInput="dark"
         formControlName="gsmNumber"
         onKeyPress="if(this.value.length==11) return false;"
+        max="9999999999"
         #gsmNumber
       />
 
@@ -78,10 +84,12 @@
 
       <label class="e-label">ORDER NUMBER</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="orderNumber"
+        (keypress)="isNumberId($event)"
         onKeyPress="if(this.value.length==8) return false;"
+        max="99999999"
         #orderNumber
       />
     </form>

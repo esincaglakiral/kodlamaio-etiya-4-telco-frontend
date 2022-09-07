@@ -65,8 +65,8 @@ export class SideFilterComponent implements OnInit {
     this.createSearchForm();
   }
 
-  isNationalId(event: any): boolean {
-    console.log(event);
+  isNumberId(event: any): boolean {
+   
     const pattern = /[0-9]/;
     const char = String.fromCharCode(event.which ? event.which : event.keyCode);
     if (pattern.test(char)) return true;
