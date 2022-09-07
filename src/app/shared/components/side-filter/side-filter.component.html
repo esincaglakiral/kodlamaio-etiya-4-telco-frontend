@@ -11,10 +11,11 @@
     <form [formGroup]="searchForm">
       <label class="e-label mt-4">NATIONALITY ID</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="nationalityId"
-        onKeyPress="if(this.value.length==7) return false;"
+        (keypress)="isNationalId($event)"
+        onKeyPress="if(this.value.length==11) return false;"
         #nationalityId
       />
 
@@ -38,13 +39,22 @@
 
       <label class="e-label">GSM NUMBER</label>
       <input
-      [textMask]="{mask: phoneMask}" 
+        [textMask]="{ mask: phoneMask }"
         type="text"
+        etiyaInput="dark"
+        formControlName="gsmNumber"
+        onKeyPress="if(this.value.length==11) return false;"
+        #gsmNumber
+      />
+
+      <!-- <label class="e-label">GSM NUMBER</label>
+      <input
+        type="number"
         etiyaInput="dark"
         formControlName="gsmNumber"
         onKeyPress="if(this.value.length==10) return false;"
         #gsmNumber
-      />
+      /> -->
 
       <label class="e-label">FIRST NAME</label>
       <input

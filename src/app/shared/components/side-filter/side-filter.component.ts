@@ -8,10 +8,27 @@ import { CustomersService } from 'src/app/features/customers/services/customer/c
   styleUrls: ['./side-filter.component.css'],
 })
 export class SideFilterComponent implements OnInit {
+ 
+
   @Input() filterTitle!: string;
   searchForm!: FormGroup;
   @Output() filteredData: any = new EventEmitter();
-  phoneMask :any = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  phoneMask: any = [
+    '(',
+    /[1-9]/,
+    /\d/,
+    /\d/,
+    ')',
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    '-',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ];
   constructor(
     private formBuilder: FormBuilder,
     private customersService: CustomersService
@@ -39,14 +56,22 @@ export class SideFilterComponent implements OnInit {
       ...this.searchForm.value,
       nationalityId: nationalityId,
     };
-    console.log(nationalityId)
-    this.customersService
-      .getListByFilter(newSearchForm)
-      .subscribe((data) => {
-        this.filteredData.emit(data);
-      });
+    console.log(this.searchForm.value.gsmNumber);
+    this.customersService.getListByFilter(newSearchForm).subscribe((data) => {
+      this.filteredData.emit(data);
+    });
   }
   clear() {
     this.createSearchForm();
+  }
+
+  isNationalId(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }
