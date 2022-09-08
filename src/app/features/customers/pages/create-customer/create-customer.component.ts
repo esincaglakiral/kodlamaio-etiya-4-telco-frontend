@@ -21,9 +21,21 @@ export class CreateCustomerComponent implements OnInit {
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
   isShow: Boolean = false;
-
+  now: Date = new Date();
+  min: Date = new Date(
+    this.now.getFullYear() - 18,
+    this.now.getMonth(),
+    this.now.getDate() - 1
+  );
+  get minDateInput() {
+    let month = this.min.getMonth() + 1;
+    let day = this.min.getDate();
+    return `${this.min.getFullYear()}-${month > 10 ? month : `0${month}`}-${
+      day > 10 ? day : `0${day}`
+    }`;
+  }
   // minDate = '2004-01-01';
-  maxDate = '2004-08-08';
+
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
@@ -79,22 +91,28 @@ export class CreateCustomerComponent implements OnInit {
     return false;
   }
 
-  isBirthdayValid(event: any): boolean {
-    const now = new Date();
-    const inputDate = new Date(event.target.value);
-    if (
-      inputDate.getTime() -
-        new Date(
-          now.getFullYear() - 18,
-          now.getMonth(),
-          now.getDay()
-        ).getTime() >=
-      0
-    )
-      return true;
-    console.log('18 den büyük');
-    event.preventDefault();
-    return false;
+  isBirthDayValid(event: any): boolean {
+    if (!event.target.value) return true;
+
+    const inputDate: Date = new Date(event.target.value);
+    const isValid: boolean =
+      new Date(
+        inputDate.getFullYear(),
+        inputDate.getMonth(),
+        inputDate.getDate()
+      ).getTime() <= this.min.getTime();
+
+    if (!isValid) {
+      this.messageService.add({
+        detail: 'A Customer Is Already Exist With This Nationality ID',
+        severity: 'info',
+        summary: 'Warning!',
+        key: 'etiya-custom',
+        sticky: true,
+      });
+    }
+
+    return true;
   }
 
   getCustomers(id: number) {
@@ -102,7 +120,7 @@ export class CreateCustomerComponent implements OnInit {
       response.filter((item) => {
         if (item.nationalityId === id) {
           this.messageService.add({
-            detail: 'a customer is already exist',
+            detail: 'A Customer Is Already Exist With This Nationality ID',
             severity: 'info',
             summary: 'Warning!',
             key: 'etiya-custom',
