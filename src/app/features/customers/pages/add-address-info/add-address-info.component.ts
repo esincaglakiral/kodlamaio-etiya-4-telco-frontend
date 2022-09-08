@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CityService } from 'src/app/features/city/services/city/city.service';
@@ -19,8 +15,8 @@ import { CustomersService } from '../../services/customer/customers.service';
 })
 export class AddAddressInfoComponent implements OnInit {
   addressForm!: FormGroup;
-  cityList!: City[];  
-  isShow:Boolean=false
+  cityList!: City[];
+  isShow: Boolean = false;
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
   addressList!: Address;
@@ -32,7 +28,9 @@ export class AddAddressInfoComponent implements OnInit {
     private router: Router,
     private cityService: CityService,
     private activatedRoute: ActivatedRoute
-  ) {this.createCustomerModel$ = this.customersService.customerToAddModel$;}
+  ) {
+    this.createCustomerModel$ = this.customersService.customerToAddModel$;
+  }
 
   ngOnInit(): void {
     this.createCustomerModel$.subscribe((state) => {
@@ -52,7 +50,10 @@ export class AddAddressInfoComponent implements OnInit {
 
   createAddressForm() {
     this.addressForm = this.formBuilder.group({
-      city: [this.addressList?.city?.id || 0, [Validators.required,Validators.min(1)]],
+      city: [
+        this.addressList?.city?.id || 0,
+        [Validators.required, Validators.min(1)],
+      ],
       street: [this.addressList?.street || '', Validators.required],
       flatNumber: [this.addressList?.flatNumber || '', Validators.required],
       description: [this.addressList?.description || '', Validators.required],
@@ -60,12 +61,11 @@ export class AddAddressInfoComponent implements OnInit {
   }
 
   save() {
-    console.log(this.selectedAddressId)
+    console.log(this.selectedAddressId);
     if (this.selectedAddressId) {
       this.updateAddress();
     } else {
-      this.addAddress(); 
-      
+      this.addAddress();
     }
   }
 
@@ -77,40 +77,35 @@ export class AddAddressInfoComponent implements OnInit {
           (city) => city.id == this.addressForm.value.city
         ),
       };
-      this.isShow = false
+      this.isShow = false;
       this.customersService.addAddressInfoToStore(addressToAdd, this.customer);
-    this.router.navigateByUrl('/dashboard/customers/list-address-info');
-    }
-    else{
-      this.isShow = true
+      this.router.navigateByUrl('/dashboard/customers/list-address-info');
+    } else {
+      this.isShow = true;
     }
   }
 
   updateAddress() {
     if (this.addressForm.valid) {
-    let addressToFind = this.customer.addresses?.find(
-      (c) => c.id == this.selectedAddressId
-    );
-    if (addressToFind) {
-      const addressToUpdate = {
-        ...addressToFind,
-        ...this.addressForm.value,
-        city: this.cityList.find(
-          (city) => city.id == this.addressForm.value.city
-        ),
-      };
-      this.customersService.updateAddressInfoToStore(
-        addressToUpdate
+      let addressToFind = this.customer.addresses?.find(
+        (c) => c.id == this.selectedAddressId
       );
-      this.router.navigateByUrl('/dashboard/customers/list-address-info');
-      this.isShow = false;
+      if (addressToFind) {
+        const addressToUpdate = {
+          ...addressToFind,
+          ...this.addressForm.value,
+          city: this.cityList.find(
+            (city) => city.id == this.addressForm.value.city
+          ),
+        };
+        this.customersService.updateAddressInfoToStore(addressToUpdate);
+        this.router.navigateByUrl('/dashboard/customers/list-address-info');
+        this.isShow = false;
       }
-    }
-    else{
-      this.isShow = true
+    } else {
+      this.isShow = true;
     }
   }
-
 
   getAddressList() {
     this.cityService.getList().subscribe((data) => {

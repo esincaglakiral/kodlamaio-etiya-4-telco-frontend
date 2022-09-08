@@ -69,7 +69,6 @@ input::placeholder {
 
 .invalid-input {
   border-color: red!important;
-  color: red !important;
 }
 
 small{

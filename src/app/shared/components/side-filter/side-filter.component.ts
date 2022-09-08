@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CustomersService } from 'src/app/features/customers/services/customer/customers.service';
 
 @Component({
@@ -10,12 +15,28 @@ import { CustomersService } from 'src/app/features/customers/services/customer/c
 export class SideFilterComponent implements OnInit {
   @Input() filterTitle!: string;
   searchForm!: FormGroup;
+  isShow: Boolean = false;
   @Output() filteredData: any = new EventEmitter();
   constructor(
     private formBuilder: FormBuilder,
     private customersService: CustomersService
   ) {}
-
+  phoneMask: any = [
+    '(',
+    /[1-9]/,
+    /\d/,
+    /\d/,
+    ')',
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    '-',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ];
   ngOnInit(): void {
     this.createSearchForm();
   }
@@ -24,8 +45,8 @@ export class SideFilterComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       nationalityId: [''],
       customerId: [''],
-      accountNumber: [''],
-      gsmNumber: [''],
+      accountNumber: ['', [Validators.pattern('^[0-9]{10}$')]],
+      gsmNumber: ['', [Validators.pattern('^[0-9]{11}$')]],
       firstName: [''],
       lastName: [''],
       orderNumber: [''],
@@ -33,22 +54,24 @@ export class SideFilterComponent implements OnInit {
   }
 
   search() {
-    let nationalityId = parseInt(this.searchForm.value.nationalityId);
-    const newSearchForm = {
-      ...this.searchForm.value,
-      nationalityId: nationalityId,
-    };
-    console.log(nationalityId)
-    this.customersService
-      .getListByFilter(newSearchForm)
-      .subscribe((data) => {
+    if (this.searchForm.valid) {
+      this.isShow = false;
+      let nationalityId = parseInt(this.searchForm.value.nationalityId);
+      const newSearchForm = {
+        ...this.searchForm.value,
+        nationalityId: nationalityId,
+      };
+      this.customersService.getListByFilter(newSearchForm).subscribe((data) => {
         this.filteredData.emit(data);
       });
+    } else {
+      this.isShow = true;
+    }
   }
+
   clear() {
     this.createSearchForm();
   }
-
   isNumber(event: any): boolean {
     console.log(event);
     const pattern = /[0-9]/;

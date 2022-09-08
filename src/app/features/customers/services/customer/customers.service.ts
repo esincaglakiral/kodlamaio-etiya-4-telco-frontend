@@ -1,12 +1,12 @@
 import {
-  addAddressInfo,
   removeAddressInfo,
-  setContactMediumInfo,
-  setDemographicInfo,
   updateAddressInfo,
-} from '../../../../shared/store/customers/customerToAdd/customerToAdd.actions';
+  setDemographicInfo,
+  setContactMediumInfo,
+  addAddressInfo,
+} from './../../../../shared/store/customers/customerToAdd/customerToAdd.actions';
 import { Customer } from './../../models/customer';
-import { Observable, Subject } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -44,10 +44,10 @@ export class CustomersService {
         let filteredCustomers = response;
         if (searchCustomer.nationalityId) {
           filteredCustomers = filteredCustomers.filter((item) =>
-            item
-              .nationalityId!.toString()
+            item.nationalityId
+              ?.toString()
               .includes(searchCustomer.nationalityId.toString())
-          );;
+          );
         }
         if (searchCustomer.customerId) {
           filteredCustomers = filteredCustomers.filter(
@@ -63,10 +63,12 @@ export class CustomersService {
         }
 
         if (searchCustomer.gsmNumber) {
-          filteredCustomers = filteredCustomers.filter(
-            (item) =>
-               item.contactMedium!.mobilePhone.substr(1,14).split(' ').join('').includes(searchCustomer.gsmNumber)
-              
+          filteredCustomers = filteredCustomers.filter((item) =>
+            item
+              .contactMedium!.mobilePhone.substr(1, 14)
+              .split(' ')
+              .join('')
+              .includes(searchCustomer.gsmNumber)
           );
         }
 
@@ -108,19 +110,19 @@ export class CustomersService {
     this.store.dispatch(setDemographicInfo(props));
   }
 
+  updateAddressInfoToStore(props: Address) {
+    const newAddress: Address = {
+      ...props,
+    };
+    this.store.dispatch(updateAddressInfo(newAddress));
+  }
+
   addAddressInfoToStore(props: Address, customers: Customer) {
     const newAddress: Address = {
       ...props,
       id: (customers.addresses?.length || 0) + 1,
     };
     this.store.dispatch(addAddressInfo(newAddress));
-  }
-
-  updateAddressInfoToStore(props: Address) {
-    const newAddress: Address = {
-      ...props,
-    };
-    this.store.dispatch(updateAddressInfo(newAddress));
   }
 
   removeAdress(address: Address) {
