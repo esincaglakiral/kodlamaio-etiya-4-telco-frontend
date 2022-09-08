@@ -14,7 +14,7 @@ export class UpdateCustomerComponent implements OnInit {
   updateCustomerForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
-
+  maxDate = '2004-08-08';
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,

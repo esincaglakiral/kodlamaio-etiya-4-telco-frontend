@@ -65,10 +65,11 @@
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="birthDate">Birth Name:</label>
+                  <label class="col-5" for="birthDate">Birth Date:</label>
                   <input
                     class="col-7"
                     type="text"
+                    [max]="maxDate"
                     etiyaInput="dark"
                     formControlName="birthDate"
                   />
@@ -133,7 +134,9 @@
               <div class="col-6 d-flex justify-content-lg-start">
                 <button
                   etiyaButton="clear"
-                  routerLink="/dashboard/customers/customer-info"
+                  routerLink="/dashboard/customers/customer-info/{{
+                    customer.id
+                  }}"
                 >
                   CANCEL
                 </button>

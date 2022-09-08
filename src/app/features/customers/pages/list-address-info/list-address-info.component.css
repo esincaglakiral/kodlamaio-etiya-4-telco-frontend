@@ -14,15 +14,16 @@
   font-size: 18px;
   line-height: 19px;
 }
-.table-body {
+.table-body td,
+.table-body tr th{
   font-family: 'Anybody';
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 25px;
-
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255);
 }
+
 .e-buttons {
   display: flex;
   justify-content: space-between;
@@ -33,4 +34,35 @@
 }
 .e-btn-new-address {
   margin-left: 20px;
+}
+
+.e-btn-edit{
+  height: 36px;
+  width: 36px;
+  float: left;
+}
+
+.e-btn-remove{
+  height: 36px;
+  width: 36px;
+  float: left;
+  margin-left: -10px;
+}
+
+::ng-deep .e-btn-clear:disabled{
+  box-sizing: border-box;
+
+  width: 118px;
+  height: 41px;
+
+  font-family: 'Anybody';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 21px;
+
+  background: rgba(245, 130, 32, 0.3);
+  border: 1px solid #F58220;
+  box-shadow: 4px 6px 2px rgba(0, 0, 0, 0.25), inset -1px 1px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
 }

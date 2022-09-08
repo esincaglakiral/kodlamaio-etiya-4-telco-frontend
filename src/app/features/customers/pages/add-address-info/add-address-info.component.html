@@ -31,11 +31,15 @@
                         name="gender"
                         id="gender"
                         formControlName="city"
+                        [ngClass]="{
+                          'invalid-input':
+                            isShow && addressForm.controls['city'].errors
+                        }"
                       >
-                        <option selected disabled hidden value="">
+                        <option selected disabled hidden [value]="0">
                           Choose a city
                         </option>
-                        <option *ngFor="let city of cityList" [ngValue]="city">
+                        <option *ngFor="let city of cityList" [value]="city.id">
                           {{ city.name }}
                         </option>
                       </select>
@@ -55,6 +59,10 @@
                       type="text"
                       etiyaInput="dark"
                       formControlName="flatNumber"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['flatNumber'].errors
+                      }"
                     />
                   </div>
                 </div>
@@ -71,6 +79,10 @@
                       type="text"
                       etiyaInput="dark"
                       formControlName="street"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['street'].errors
+                      }"
                     />
                   </div>
                 </div>
@@ -87,14 +99,33 @@
                       class="e-address-desc"
                       placeholder=""
                       formControlName="description"
+                      maxlength="250"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['description'].errors
+                      }"
                     ></textarea>
                   </div>
+                  <small
+                    *ngIf="
+                      isShow &&
+                      (addressForm.controls['description'].errors ||
+                        (isShow && addressForm.controls['street'].errors) ||
+                        (isShow && addressForm.controls['flatNumber'].errors) ||
+                        (isShow && addressForm.controls['city'].errors))
+                    "
+                    id="lastName-help"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 400px; margin-top: 5px"
+                  >
+                    Requirements field can not be left blank
+                  </small>
                 </div>
               </div>
             </div>
             <div class="row mt-2 d-flex justify-content-center">
               <div class="col-2">
-                <button etiyaButton="clear" (click)="addAddress()">SAVE</button>
+                <button etiyaButton="clear" (click)="save()">SAVE</button>
               </div>
             </div>
           </form>

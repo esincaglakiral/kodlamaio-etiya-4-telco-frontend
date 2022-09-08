@@ -11,23 +11,20 @@
     <form [formGroup]="searchForm">
       <label class="e-label mt-4">NATIONALITY ID</label>
       <input
-        type="text"
+        type="number"
         etiyaInput="dark"
         formControlName="nationalityId"
-        (keypress)="isNumberId($event)"
+        (keypress)="isNumber($event)"
         onKeyPress="if(this.value.length==11) return false;"
-        max="99999999999"
         #nationalityId
       />
 
       <label class="e-label">CUSTOMER ID</label>
       <input
-        type="text"
+        type="number"
         etiyaInput="dark"
         formControlName="customerId"
-        (keypress)="isNumberId($event)"
-        onKeyPress="if(this.value.length==7) return false;"
-        max="9999999"
+        (keypress)="isNumber($event)"
         #customerId
       />
 
@@ -36,31 +33,19 @@
         type="text"
         etiyaInput="dark"
         formControlName="accountNumber"
-        (keypress)="isNumberId($event)"
-        onKeyPress="if(this.value.length==10) return false;"
-        max="9999999999"
+        maxlength="10"
         #accountNumber
       />
 
       <label class="e-label">GSM NUMBER</label>
       <input
-        [textMask]="{ mask: phoneMask }"
         type="text"
         etiyaInput="dark"
         formControlName="gsmNumber"
-        onKeyPress="if(this.value.length==11) return false;"
-        max="9999999999"
+        maxlength="11"
+        (keypress)="isNumber($event)"
         #gsmNumber
       />
-
-      <!-- <label class="e-label">GSM NUMBER</label>
-      <input
-        type="number"
-        etiyaInput="dark"
-        formControlName="gsmNumber"
-        onKeyPress="if(this.value.length==10) return false;"
-        #gsmNumber
-      /> -->
 
       <label class="e-label">FIRST NAME</label>
       <input
@@ -87,9 +72,7 @@
         type="text"
         etiyaInput="dark"
         formControlName="orderNumber"
-        (keypress)="isNumberId($event)"
-        onKeyPress="if(this.value.length==8) return false;"
-        max="99999999"
+        (keypress)="isNumber($event)"
         #orderNumber
       />
     </form>

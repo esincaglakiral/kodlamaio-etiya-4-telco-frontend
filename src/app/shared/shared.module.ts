@@ -35,6 +35,9 @@ import { TableAccordionHeaderComponent } from './components/table-accordion-head
 import { StoreModule } from '@ngrx/store';
 import { sharedReducers } from './store/shared.reducers';
 import { TextMaskModule } from 'angular2-text-mask';
+import { ValidationDialogPopupComponent } from './components/validation-dialog-popup/validation-dialog-popup.component';
+
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     OverlayTitleComponent,
@@ -63,6 +66,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     CheckBoxDirective,
     TableScrollComponent,
     TableAccordionHeaderComponent,
+    ValidationDialogPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -72,7 +76,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(sharedReducers),
-    TextMaskModule
+    TextMaskModule,
+    DialogModule,
   ],
   exports: [
     OverlayTitleComponent,

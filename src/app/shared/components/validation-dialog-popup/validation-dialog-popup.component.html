@@ -1,0 +1,17 @@
+<p-toast position="center" key="validation-popup" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <p-dialog>
+      <p>
+        {{ message.detail }}
+      </p>
+      <ng-template pTemplate="footer">
+        <p-button
+          icon="pi pi-check"
+          (click)="Clear()"
+          label="Ok"
+          styleClass="p-button-text"
+        ></p-button>
+      </ng-template>
+    </p-dialog>
+  </ng-template>
+</p-toast>
