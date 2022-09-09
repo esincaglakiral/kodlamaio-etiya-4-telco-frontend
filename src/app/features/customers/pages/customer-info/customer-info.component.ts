@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
 
@@ -10,15 +11,49 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class CustomerInfoComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
+  customerToDelete!: Customer;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private customerService: CustomersService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.getCustomerById();
+    this.checkIsActiveStatus();
   }
+
+
+
+
+  checkIsActiveStatus() {
+    this.messageService.clearObserver.subscribe((data) => {
+      if (data == 'reject') {
+        this.messageService.clear();
+      } else if (data == 'confirm') {
+        let filteredData = this.customer.billingAccounts?.find((c) => {
+          return c.status === 'active';
+        });
+        this.messageService.clear();
+
+        if (filteredData) {
+          this.messageService.add({
+            key: 'okey',            
+            sticky: true,
+            severity: 'warn',
+            detail:
+            'Since the customer has active products, the customer cannot be deleted.',
+          });
+        } else {
+          this.messageService.clear();
+          this.removeCustomer();
+        }
+      }
+    });
+  }
+
 
   getCustomerById() {
     this.activatedRoute.params.subscribe((params) => {
@@ -36,6 +71,24 @@ export class CustomerInfoComponent implements OnInit {
   }
 
   getCustomerId(customer: Customer) {
-    this.router.navigateByUrl(`/update-customer/${customer.id}`);
+    this.router.navigateByUrl(`/dashboard/customers/update-customer/${customer.id}`);
   }
+
+
+  removeCustomerPopup(customer: Customer) {
+    this.customerToDelete = customer;
+    this.messageService.add({
+      key: 'c',
+      sticky: true,
+      severity: 'warn',
+      detail: 'Are you sure to delete this customer?',
+    });
+  }
+
+  removeCustomer() {
+    this.customerService.delete(this.customerToDelete.id!).subscribe((data) => {
+      this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+    });
+  }
+
 }
