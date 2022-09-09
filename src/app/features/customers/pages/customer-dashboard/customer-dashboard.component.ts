@@ -17,9 +17,7 @@ export class CustomerDashboardComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.getCustomersList();
-  }
+  ngOnInit(): void {}
 
   getCustomersList() {
     this.customersService.getList().subscribe((response) => {

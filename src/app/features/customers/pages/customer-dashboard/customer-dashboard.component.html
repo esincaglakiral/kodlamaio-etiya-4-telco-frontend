@@ -8,10 +8,7 @@
           <app-user-info></app-user-info>
         </div>
 
-        <app-side-filter
-          [filterTitle]="'SEARCH CUSTOMER'"
-          (filteredData)="search($event)"
-        >
+        <app-side-filter [filterTitle]="'SEARCH CUSTOMER'" (filteredData)="search($event)">
         </app-side-filter>
       </div>
 
@@ -24,15 +21,9 @@
               <app-not-found [btnText]="'CREATE CUSTOMER'"></app-not-found>
             </div>
             <ng-template #tableInfo>
-              <button
-              etiyaButton="new-address"
-              routerLink="/dashboard/customers/create-customer"
-            >
-              <img
-                etiyaButton="create-logo"
-                src="../../../../assets/img/create_btn_logo.png"
-              />Create Customer
-            </button>
+              <button etiyaButton="new-address" routerLink="/dashboard/customers/create-customer">
+                <img etiyaButton="create-logo" src="../../../../assets/img/create_btn_logo.png" />Create Customer
+              </button>
               <div class="table-responsive">
                 <app-table-info class="e-table">
                   <thead>
@@ -46,18 +37,16 @@
                     </tr>
                   </thead>
                   <tbody class="table-body">
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         filteredCustomerList && lenght != 0;
                         then filteredListState;
                         else otherState
-                      "
-                    ></div>
-                    <ng-template #filteredListState>                    
+                      "></div>
+                    <ng-template #filteredListState>
                       <tr *ngFor="let customer of filteredCustomerList">
                         <th><a (click)="getCustomerId(customer)">{{
-                          customer.id
-                        }}</a></th>
+                            customer.customerId
+                            }}</a></th>
                         <td>{{ customer.firstName }}</td>
                         <td>{{ customer.middleName }}</td>
                         <td>{{ customer.lastName }}</td>
@@ -71,7 +60,7 @@
                         <th>
                           <a (click)="getCustomerId(customer)">{{
                             customer.id
-                          }}</a>
+                            }}</a>
                         </th>
                         <td>{{ customer.firstName }}</td>
                         <td>{{ customer.middleName }}</td>

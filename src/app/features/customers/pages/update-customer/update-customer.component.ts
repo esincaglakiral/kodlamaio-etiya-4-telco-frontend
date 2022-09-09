@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,7 +31,8 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomerById(); this.messageService.clearObserver.subscribe((data) => {
+    this.getCustomerById();
+    this.messageService.clearObserver.subscribe((data) => {
       if (data == 'r') {
         this.messageService.clear();
       } else if (data == 'c') {
@@ -40,25 +42,39 @@ export class UpdateCustomerComponent implements OnInit {
         );
       }
     });
-
   }
 
   createFormUpdateCustomer() {
-       console.log(this.customer.birthDate);
+    console.log(this.customer.birthDate);
     let bDate = new Date();
     if (this.customer.birthDate) {
       bDate = new Date(this.customer.birthDate);
     }
     this.updateCustomerForm = this.formBuilder.group({
       firstName: [this.customer.firstName, Validators.required],
-      middleName: [this.customer.middleName, Validators.required],
+      middleName: [this.customer.middleName],
       lastName: [this.customer.lastName, Validators.required],
-      birthDate: [this.customer.birthDate, Validators.required],
+      birthDate: [
+        formatDate(new Date(bDate), 'yyyy-MM-dd', 'en'),
+        Validators.required,
+      ],
       gender: [this.customer.gender, Validators.required],
-      fatherName: [this.customer.fatherName, Validators.required],
-      motherName: [this.customer.motherName, Validators.required],
-      nationalityId: [this.customer.nationalityId, Validators.required],
+      fatherName: [this.customer.fatherName],
+      motherName: [this.customer.motherName],
+      nationalityId: [
+        this.customer.nationalityId,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+      ],
     });
+  }
+  onDateChange(event: any) {
+    let date = new Date(event.target.value);
+    if (date.getFullYear() > this.today.getFullYear()) {
+      this.updateCustomerForm.get('birthDate')?.setValue('');
+      this.futureDate = true;
+    } else {
+      this.futureDate = false;
+    }
   }
 
   getCustomerById() {
@@ -77,32 +93,86 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
-  update() {
-    if (this.updateCustomerForm.invalid) {
-      this.messageService.add({
-        detail: 'Please fill required areas',
-        severity: 'danger',
-        summary: 'Error',
-        key: 'etiya-custom',
-      });
-      return;
-    }
+  // goNextPage() {
+  //   if (this.updateCustomerForm.valid) {
+  //     this.isShow = false;
+  //     this.customerService.setDemographicInfoToStore(this.updateCustomerForm.value);
+  //     this.router.navigateByUrl('/dashboard/customers/list-address-info');
+  //   } else {
+  //     this.isShow = true;
+  //   }
+  // }
+
+  updateCustomer() {
+    this.isShow = false;
     const customer: Customer = Object.assign(
       { id: this.customer.id },
       this.updateCustomerForm.value
     );
     this.customerService.update(customer, this.customer).subscribe(() => {
-      setTimeout(() => {
-        this.router.navigateByUrl(
-          `/dashboard/customers/customer-address/${customer.id}`
-        );
+      this.router.navigateByUrl(
+        `/dashboard/customers/customer-info/${customer.id}`
+      );
+      this.messageService.add({
+        detail: 'Sucsessfully updated',
+        severity: 'success',
+        summary: 'Update',
+        key: 'etiya-custom',
+      });
+    });
+  }
+  checkInvalid() {
+    if (this.updateCustomerForm.invalid) {
+      this.isShow = true;
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Enter required fields',
+        key: 'etiya-custom',
+      });
+      return;
+    }
+    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    let age = this.today.getFullYear() - date.getFullYear();
+    if (age < 18) {
+      this.under18 = true;
+      return;
+    } else {
+      this.under18 = false;
+    }
+
+    if (
+      this.updateCustomerForm.value.nationalityId ===
+      this.customer.nationalityId
+    )
+      this.updateCustomer();
+    else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
+  }
+
+  checkTcNum(id: number) {
+    this.customerService.getList().subscribe((response) => {
+      let matchCustomer = response.find((item) => {
+        return item.nationalityId == id;
+      });
+      if (matchCustomer) {
         this.messageService.add({
-          detail: 'Sucsessfully updated',
-          severity: 'success',
-          summary: 'Update',
+          detail: 'A customer is already exist with this Nationality ID',
           key: 'etiya-custom',
         });
-      }, 1000);
+      } else this.updateCustomer();
     });
+  }
+  update() {
+    this.checkInvalid();
+  }
+
+  isValid(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }

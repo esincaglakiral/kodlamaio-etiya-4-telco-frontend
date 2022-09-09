@@ -14,9 +14,11 @@ export class ListAddressInfoComponent implements OnInit {
   customer!: Customer;
   addressToDelete!: Address;
 
-  constructor(private customersService: CustomersService,
+  constructor(
+    private customersService: CustomersService,
     private router: Router,
-    private messageService: MessageService) {}
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.customersService.customerToAddModel$.subscribe((state) => {
@@ -34,7 +36,9 @@ export class ListAddressInfoComponent implements OnInit {
 
   selectAddressId(id: number) {
     let address = this.customer.addresses?.find((c) => c.id == id);
-    this.router.navigateByUrl(`/dashboard/customers/update-address-info/${address?.id}`);
+    this.router.navigateByUrl(
+      `/dashboard/customers/update-address-info/${address?.id}`
+    );
   }
 
   removePopup(address: Address) {
@@ -52,6 +56,6 @@ export class ListAddressInfoComponent implements OnInit {
   }
   remove() {
     // this.customersService.removeAdress(this.addressToDelete);
-    this.customersService.removeAdressToStore(this.addressToDelete);
+    this.customersService.removeAdress(this.addressToDelete);
   }
 }

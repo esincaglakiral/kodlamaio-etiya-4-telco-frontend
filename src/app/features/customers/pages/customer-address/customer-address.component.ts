@@ -19,7 +19,7 @@ export class CustomerAddressComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private customerService: CustomersService,
     private router: Router,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class CustomerAddressComponent implements OnInit {
         .getCustomerById(this.selectedCustomerId)
         .subscribe((data) => {
           this.customer = data;
-          this.customerAddress = []
+          this.customerAddress = [];
           data.addresses?.forEach((adress) => {
             this.customerAddress.push(adress);
           });
@@ -93,11 +93,6 @@ export class CustomerAddressComponent implements OnInit {
   }
 
   remove() {
-    this.customerService
-      .removeAddress(this.addressToDelete, this.customer)
-      .subscribe((data) => {
-        // this.getCustomerById();
-      });
+    this.customerService.removeAdress(this.addressToDelete);
   }
-
 }

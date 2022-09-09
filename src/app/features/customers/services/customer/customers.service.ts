@@ -6,7 +6,7 @@ import {
   addAddressInfo,
 } from './../../../../shared/store/customers/customerToAdd/customerToAdd.actions';
 import { Customer } from './../../models/customer';
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable, startWith, Subject } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -43,10 +43,10 @@ export class CustomersService {
       next: (response) => {
         let filteredCustomers = response;
         if (searchCustomer.nationalityId) {
-          filteredCustomers = filteredCustomers.filter((item) =>
-            item.nationalityId
-              ?.toString()
-              .includes(searchCustomer.nationalityId.toString())
+          filteredCustomers = filteredCustomers.filter(
+            (item) =>
+              item.nationalityId?.toString() ==
+              searchCustomer.nationalityId.toString()
           );
         }
         if (searchCustomer.customerId) {
@@ -76,14 +76,14 @@ export class CustomersService {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
               .firstName!.toLowerCase()
-              .includes(searchCustomer.firstName.toLowerCase())
+              .startsWith(searchCustomer.firstName.toLowerCase())
           );
         }
         if (searchCustomer.lastName) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
               .lastName!.toLowerCase()
-              .includes(searchCustomer.lastName.toLowerCase())
+              .startsWith(searchCustomer.lastName.toLowerCase())
           );
         }
         if (searchCustomer.orderNumber) {
@@ -125,11 +125,7 @@ export class CustomersService {
     this.store.dispatch(addAddressInfo(newAddress));
   }
 
-  // removeAdress(address: Address) {
-  //   this.store.dispatch(removeAddressInfo(address));
-  // }
-
-  removeAdressToStore(address: Address) {
+  removeAdress(address: Address) {
     this.store.dispatch(removeAddressInfo(address));
   }
 
@@ -257,24 +253,4 @@ export class CustomersService {
       newCustomer
     );
   }
-
-
-  removeAddress(
-    addressToDelete: Address,
-    customer: Customer
-  ): Observable<Customer> {
-    const newCustomer: Customer = {
-      ...customer,
-    };
-    const newAddress = customer.addresses?.filter(
-      (address) => address.id != addressToDelete.id
-    );
-    newCustomer.addresses = newAddress;
-
-    return this.httpClient.put<Customer>(
-      `${this.apiControllerUrl}/${customer.id}`,
-      newCustomer
-    );
-  }
-
 }

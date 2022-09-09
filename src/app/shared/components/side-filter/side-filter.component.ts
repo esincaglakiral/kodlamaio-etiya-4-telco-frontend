@@ -54,6 +54,8 @@ export class SideFilterComponent implements OnInit {
   }
 
   search() {
+    console.log(this.searchForm);
+
     if (this.searchForm.valid) {
       this.isShow = false;
       let nationalityId = parseInt(this.searchForm.value.nationalityId);
