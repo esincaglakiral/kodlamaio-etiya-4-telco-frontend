@@ -18,9 +18,9 @@ export class UpdateCustomerComponent implements OnInit {
   maxDate = '2004-08-08';
   isShow: Boolean = false;
   nationalityId: Boolean = false;
+  today: Date = new Date();
   under18: Boolean = false;
   futureDate: Boolean = false;
-  today: Date = new Date();
 
   constructor(
     private formBuilder: FormBuilder,

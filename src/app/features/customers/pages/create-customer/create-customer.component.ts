@@ -23,9 +23,9 @@ export class CreateCustomerComponent implements OnInit {
   isShow: Boolean = false;
   nationalityId: Boolean = false;
   maxDate = '2004-08-08';
+  today: Date = new Date();
   under18: Boolean = false;
   futureDate: Boolean = false;
-  today: Date = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,64 +67,6 @@ export class CreateCustomerComponent implements OnInit {
       ],
     });
   }
-  updateCustomer() {
-    this.isShow = false;
-    const customer: Customer = Object.assign(
-      { id: this.customer.id },
-      this.profileForm.value
-    );
-    this.customerService.update(customer, this.customer).subscribe(() => {
-      this.router.navigateByUrl(
-        `/dashboard/customers/create-customer/${customer.id}`
-      );
-      this.messageService.add({
-        detail: 'Sucsessfully updated',
-        severity: 'success',
-        summary: 'Update',
-        key: 'etiya-custom',
-      });
-    });
-  }
-  checkInvalid() {
-    if (this.profileForm.invalid) {
-      this.isShow = true;
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Enter required fields',
-        key: 'etiya-custom',
-      });
-      return;
-    }
-    let date = new Date(this.profileForm.get('birthDate')?.value);
-    let age = this.today.getFullYear() - date.getFullYear();
-    if (age < 18) {
-      this.under18 = true;
-      return;
-    } else {
-      this.under18 = false;
-    }
-
-    if (this.profileForm.value.nationalityId === this.customer.nationalityId)
-      this.updateCustomer();
-    else this.checkTcNum(this.profileForm.value.nationalityId);
-  }
-  checkTcNum(id: number) {
-    this.customerService.getList().subscribe((response) => {
-      let matchCustomer = response.find((item) => {
-        return item.nationalityId == id;
-      });
-      if (matchCustomer) {
-        this.messageService.add({
-          detail: 'A customer is already exist with this Nationality ID',
-          key: 'etiya-custom',
-        });
-      } else this.updateCustomer();
-    });
-  }
-  update() {
-    this.checkInvalid();
-  }
 
   // goNextPage() {
   //   if (this.profileForm.valid) {
@@ -165,6 +107,72 @@ export class CreateCustomerComponent implements OnInit {
     console.log('18 den büyük');
     event.preventDefault();
     return false;
+  }
+  updateCustomer() {
+    this.isShow = false;
+    const customer: Customer = Object.assign(
+      { id: this.customer.id },
+      this.profileForm.value
+    );
+    this.customerService.update(customer, this.customer).subscribe(() => {
+      this.router.navigateByUrl(`/dashboard/customers/create-customer`);
+      this.messageService.add({
+        detail: 'Sucsessfully updated',
+        severity: 'success',
+        summary: 'Update',
+        key: 'etiya-custom',
+      });
+    });
+  }
+  onDateChange(event: any) {
+    let date = new Date(event.target.value);
+    if (date.getFullYear() > this.today.getFullYear()) {
+      this.profileForm.get('birthDate')?.setValue('');
+      this.futureDate = true;
+    } else {
+      this.futureDate = false;
+    }
+  }
+  checkInvalid() {
+    if (this.profileForm.invalid) {
+      this.isShow = true;
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Enter required fields',
+        key: 'etiya-custom',
+      });
+      return;
+    }
+    let date = new Date(this.profileForm.get('birthDate')?.value);
+    let age = this.today.getFullYear() - date.getFullYear();
+    if (age < 18) {
+      this.under18 = true;
+      return;
+    } else {
+      this.under18 = false;
+    }
+
+    if (this.profileForm.value.nationalityId === this.customer.nationalityId)
+      this.updateCustomer();
+    else this.checkTcNum(this.profileForm.value.nationalityId);
+  }
+
+  checkTcNum(id: number) {
+    this.customerService.getList().subscribe((response) => {
+      let matchCustomer = response.find((item) => {
+        return item.nationalityId == id;
+      });
+      if (matchCustomer) {
+        this.messageService.add({
+          detail: 'A customer is already exist with this Nationality ID',
+          key: 'etiya-custom',
+        });
+      } else this.updateCustomer();
+    });
+  }
+  update() {
+    this.checkInvalid();
   }
 
   // getCustomers(id: number) {

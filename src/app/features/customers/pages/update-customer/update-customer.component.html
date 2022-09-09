@@ -72,28 +72,17 @@
                   The customer cannot be under the age of 18.
                 </small>
               </div>
-
               <div class="col-6">
-                <div class="form-group d-flex ">
-                  <label class="col-5" for="gender">Gender*:</label>
+                <div class="form-group d-flex justify-content-lg-start align-items-center">
+                  <label class="col-5" for="gender">Gender:</label>
                   <div class="e-dropdown col-7 p-0">
-                    <select name="gender" id="gender" class="p-2" formControlName="gender" [ngClass]="{
-                        'invalid-input':
-                          isShow && updateCustomerForm.controls['gender'].errors
-                      }">
+                    <select name="gender" id="gender" class="p-2" formControlName="gender">
                       <option selected value="Female">Female</option>
-                      <option value="Male">Male</option>
+                      <option value="Erkek">Erkek</option>
                     </select>
                   </div>
-                  <small *ngIf="
-                      isShow && updateCustomerForm.controls['gender'].errors
-                    " id="lastName-help" class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 220px; margin-top: -20px">
-                    Mandatory fields can not left blank!
-                  </small>
                 </div>
               </div>
-
 
               <div class="col-6">
                 <div class="form-group">
@@ -109,12 +98,30 @@
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="nationalId">Nationality ID:</label>
-                  <input class="col-7" type="text" etiyaInput="dark" formControlName="nationalityId" />
+                  <label class="col-5" for="nationalId">Nationality ID*:</label>
+                  <input min="10000000000" max="99999999999" (keypress)="isValid($event)"
+                    onKeyPress="if(this.value.length==11) return false;" class="col-7" type="text" etiyaInput="dark"
+                    formControlName="nationalityId" [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerForm.controls['nationalityId'].errors
+                    }" />
                 </div>
+                <small *ngIf="
+                  isShow && updateCustomerForm.controls['nationalityId'].errors?.['required']
+                  " id="lastName-help" class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 200px; margin-top: -20px">
+                  Nationality ID cannot be less than 11 digits!
+                </small>
+                <small *ngIf="
+                    isShow && updateCustomerForm.controls['nationalityId'].errors?.['pattern']
+                  " id="nationalityId-help" class="p-error block ng-invalid ng-dirty" etiyaError="error-text">
+                  You must entered 11 digits
+                </small>
               </div>
             </div>
           </div>
+
           <div class="d-flex justify-content-center">
             <div style="width: 1125px" class="row p-0 pt-4">
               <div class="col-6 d-flex justify-content-lg-start">
