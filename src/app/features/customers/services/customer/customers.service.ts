@@ -125,7 +125,11 @@ export class CustomersService {
     this.store.dispatch(addAddressInfo(newAddress));
   }
 
-  removeAdress(address: Address) {
+  // removeAdress(address: Address) {
+  //   this.store.dispatch(removeAddressInfo(address));
+  // }
+
+  removeAdressToStore(address: Address) {
     this.store.dispatch(removeAddressInfo(address));
   }
 
@@ -253,4 +257,24 @@ export class CustomersService {
       newCustomer
     );
   }
+
+
+  removeAddress(
+    addressToDelete: Address,
+    customer: Customer
+  ): Observable<Customer> {
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newAddress = customer.addresses?.filter(
+      (address) => address.id != addressToDelete.id
+    );
+    newCustomer.addresses = newAddress;
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+
 }
