@@ -75,15 +75,15 @@ export class CustomersService {
         if (searchCustomer.firstName) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
-              .firstName!.toLowerCase()
-              .startsWith(searchCustomer.firstName.toLowerCase())
+              .firstName?.toLowerCase()
+              .includes(searchCustomer.firstName.toLowerCase())
           );
         }
         if (searchCustomer.lastName) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
-              .lastName!.toLowerCase()
-              .startsWith(searchCustomer.lastName.toLowerCase())
+              .lastName?.toLowerCase()
+              .includes(searchCustomer.lastName.toLowerCase())
           );
         }
         if (searchCustomer.orderNumber) {
