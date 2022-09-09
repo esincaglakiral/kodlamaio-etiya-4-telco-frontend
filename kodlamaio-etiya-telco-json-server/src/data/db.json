@@ -416,7 +416,7 @@
       "firstName": "Codee",
       "middleName": "Lena",
       "lastName": "Gartan",
-      "birthDate": "9/29/1995",
+      "birthDate": "1995-09-29",
       "gender": "Female",
       "nationalityId": 67712315360,
       "role": "individual",
@@ -542,10 +542,10 @@
     {
       "id": 5,
       "customerId": 5,
-      "firstName": "Peria",
+      "firstName": "Perie",
       "middleName": "Morena",
       "lastName": "Sneden",
-      "birthDate": "4/6/1982",
+      "birthDate": "1982-04-06",
       "gender": "Female",
       "nationalityId": 77726199367,
       "role": "individual",
@@ -2442,6 +2442,67 @@
           ]
         }
       ]
+    },
+    {
+      "customerId": 9999,
+      "firstName": "aylin",
+      "middleName": "elif",
+      "lastName": "kıral",
+      "birthDate": "1998-05-01",
+      "gender": "Female",
+      "nationalityId": 12345642434,
+      "role": "individual",
+      "motherName": "mahi",
+      "fatherName": "esat",
+      "addresses": [
+        {
+          "city": {
+            "id": 6,
+            "name": "San Diego"
+          },
+          "street": "sfsf",
+          "flatNumber": "4545",
+          "description": "dsds",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "aylin@gmail.com",
+        "homePhone": 2123737373,
+        "mobilePhone": 55555555554,
+        "fax": 37462783647,
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "id": 21
+    },
+    {
+      "customerId": 9999,
+      "role": "individual",
+      "addresses": [
+        {
+          "city": {
+            "id": 2,
+            "name": "Los Angeles"
+          },
+          "street": "sdas",
+          "flatNumber": "3242",
+          "description": "asdas",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "cagla@gmail.com",
+        "homePhone": 24324234234,
+        "mobilePhone": 99999999999,
+        "fax": 32432432423,
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "id": 22
     }
   ],
   "offers": [
