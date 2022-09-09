@@ -11,29 +11,8 @@
       "nationalityId": 48776304564,
       "role": "cooperative",
       "motherName": "Hanna",
-      "fatherName": "Chris",
-      "addresses": [
-        {
-          "id": 1,
-          "city": {
-            "id": 1,
-            "name": "New York"
-          },
-          "street": "Granby",
-          "flatNumber": 6,
-          "description": "6128 Jay Alley"
-        },
-        {
-          "id": 2,
-          "city": {
-            "id": 1,
-            "name": "New York"
-          },
-          "street": "Oak Valley",
-          "flatNumber": 18,
-          "description": "68 Hudson Street"
-        }
-      ],
+      "fatherName": "Chri",
+      "addresses": [],
       "contactMedium": {
         "email": "cgronw0@imgur.com",
         "homePhone": "391 151 6866",
@@ -437,7 +416,7 @@
       "firstName": "Codee",
       "middleName": "Lena",
       "lastName": "Gartan",
-      "birthDate": "9/29/1997",
+      "birthDate": "9/29/1995",
       "gender": "Female",
       "nationalityId": 67712315360,
       "role": "individual",
@@ -574,24 +553,14 @@
       "fatherName": "Tades",
       "addresses": [
         {
-          "id": 1,
           "city": {
-            "id": 3,
-            "name": "Chicago"
+            "id": 5,
+            "name": "Phoenix"
           },
-          "street": "Killdeer",
-          "flatNumber": 3,
-          "description": "7 Badeau Pass"
-        },
-        {
-          "id": 2,
-          "city": {
-            "id": 3,
-            "name": "Chicago"
-          },
-          "street": "Melrose",
-          "flatNumber": 9,
-          "description": "751 Stoughton Place"
+          "street": "sdfgdrfg",
+          "flatNumber": 345435,
+          "description": "dfhbhg",
+          "id": 3
         }
       ],
       "contactMedium": {
@@ -725,88 +694,6 @@
       ]
     },
     {
-      "id": 6,
-      "customerId": 6,
-      "firstName": "Nollie",
-      "middleName": "Reuven",
-      "lastName": "Glaum",
-      "birthDate": "10/24/1978",
-      "gender": "Male",
-      "nationalityId": 57571473914,
-      "role": "cooperative",
-      "motherName": "Neilla",
-      "fatherName": "Glenden",
-      "addresses": [
-        {
-          "id": 1,
-          "city": {
-            "id": 4,
-            "name": "Houston"
-          },
-          "street": "Fieldstone",
-          "flatNumber": 11,
-          "description": "7 Brown Hill"
-        }
-      ],
-      "contactMedium": {
-        "email": "gglaum5@friendfeed.com",
-        "homePhone": "959 663 3841",
-        "mobilePhone": "+62 123 136 8425",
-        "fax": "860-838-7996"
-      },
-      "billingAccounts": [
-        {
-          "id": 1,
-          "accountNumber": "0630020647",
-          "accountName": "ligula",
-          "description": "Nunc nisl.",
-          "status": "paused",
-          "addresses": [
-            {
-              "city": {
-                "id": 4,
-                "name": "Houston"
-              },
-              "street": "East",
-              "flatNumber": 9,
-              "description": "9 Elka Trail"
-            }
-          ],
-          "orders": [
-            {
-              "id": 1,
-              "type": {
-                "id": 1,
-                "typeName": "catalog",
-                "name": "Internet"
-              },
-              "name": "32 Mbps ADSL Internet",
-              "products": [
-                {
-                  "id": 3,
-                  "name": "32 Mbps ADSL",
-                  "description ": "Duis ac nibh.",
-                  "amount": 65
-                },
-                {
-                  "id": 6,
-                  "name": "EtiMaster Data Modem",
-                  "description ": "Nunc nisl.",
-                  "amount": 80
-                },
-                {
-                  "id": 7,
-                  "name": "Activation",
-                  "description ": "Duis consequat dui nec nisi volutpat eleifend.",
-                  "amount": 30
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": 7,
       "customerId": 7,
       "firstName": "Edward",
@@ -820,24 +707,14 @@
       "fatherName": "Harvey",
       "addresses": [
         {
-          "id": 1,
           "city": {
-            "id": 4,
-            "name": "Houston"
+            "id": 9,
+            "name": "Seattle"
           },
-          "street": "Schurz",
-          "flatNumber": 11,
-          "description": "671 Di Loreto Point"
-        },
-        {
-          "id": 2,
-          "city": {
-            "id": 2,
-            "name": "Los Angeles"
-          },
-          "street": "Northview",
-          "flatNumber": 6,
-          "description": "8 Mosinee Place"
+          "street": "aws",
+          "flatNumber": 555,
+          "description": "awd",
+          "id": 2
         }
       ],
       "contactMedium": {
