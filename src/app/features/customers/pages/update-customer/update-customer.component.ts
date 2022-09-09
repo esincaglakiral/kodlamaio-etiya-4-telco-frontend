@@ -132,6 +132,7 @@ export class UpdateCustomerComponent implements OnInit {
       });
       return;
     }
+    
     let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
     let age = this.today.getFullYear() - date.getFullYear();
     if (age < 18) {
@@ -149,6 +150,15 @@ export class UpdateCustomerComponent implements OnInit {
     else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
   }
 
+
+
+
+
+
+
+
+
+  
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
       let matchCustomer = response.find((item) => {
