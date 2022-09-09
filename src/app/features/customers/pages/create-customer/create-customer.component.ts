@@ -5,12 +5,12 @@ import {
   FormGroup,
   Validators,
   FormBuilder,
-  ValidatorFn,
-  AbstractControl,
 } from '@angular/forms';
 import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
 import { Router } from '@angular/router';
+import { CustomerDemographicInfo } from '../../models/customerDemographicInfo';
+import { MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: './create-customer.component.html',
@@ -20,9 +20,13 @@ export class CreateCustomerComponent implements OnInit {
   profileForm!: FormGroup;
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
-  isShow: Boolean = false;
+  isShow:Boolean=false
+  nationalityId: Boolean = false;
+  maxDate = '2004-08-08';
+
   constructor(
     private formBuilder: FormBuilder,
+    private messageService: MessageService,
     private customerService: CustomersService,
     private router: Router
   ) {
@@ -32,22 +36,27 @@ export class CreateCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.createCustomerModel$.subscribe((state) => {
       this.customer = state;
-      this.createFormUpdateCustomer();
+      this.createFormAddCustomer();
+
+    });
+
+    this.messageService.clearObserver.subscribe((data) => {
+      if (data == 'r') {
+        this.messageService.clear();
+      } else if (data == 'c') {
+        this.messageService.clear();
+        this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+      }
     });
   }
 
-  createFormUpdateCustomer() {
+  createFormAddCustomer() {
     this.profileForm = this.formBuilder.group({
       firstName: [this.customer.firstName, Validators.required],
       middleName: [this.customer.middleName],
       lastName: [this.customer.lastName, Validators.required],
-      birthDate: [
-        this.customer.birthDate,
-        [Validators.required],
-
-        // { validator: this.ageCheck('birthDate') },
-      ],
-      gender: [this.customer.gender || '', Validators.required],
+      birthDate: [this.customer.birthDate, Validators.required],
+      gender: [this.customer.gender ?? '', Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
       nationalityId: [
@@ -55,6 +64,20 @@ export class CreateCustomerComponent implements OnInit {
         [Validators.pattern('^[0-9]{11}$'), Validators.required],
       ],
     });
+  }
+
+  // goNextPage() {
+  //   if (this.profileForm.valid) {
+  //     this.isShow = false;
+  //     this.customerService.setDemographicInfoToStore(this.profileForm.value);
+  //     this.router.navigateByUrl('/dashboard/customers/list-address-info');
+  //   } else {
+  //     this.isShow = true;
+  //   }
+  // }
+
+  get nationalId() {
+    return this.profileForm.get('nationalityId');
   }
   isNumber(event: any): boolean {
     console.log(event);
@@ -65,39 +88,75 @@ export class CreateCustomerComponent implements OnInit {
     event.preventDefault();
     return false;
   }
+
+  isBirthdayValid(event: any): boolean {
+    const now = new Date();
+    const inputDate = new Date(event.target.value);
+    if (
+      inputDate.getTime() -
+        new Date(
+          now.getFullYear() - 18,
+          now.getMonth(),
+          now.getDay()
+        ).getTime() >=
+      0
+    )
+      return true;
+    console.log('18 den büyük');
+    event.preventDefault();
+    return false;
+  }
+
+  // getCustomers(id: number) {
+  //   this.customerService.getList().subscribe((response) => {
+  //     response.filter((item) => {
+  //       if (item.nationalityId === id) {
+  //         this.messageService.add({
+  //           detail: 'a customer is already exist',
+  //           severity: 'info',
+  //           summary: 'Warning!',
+  //           key: 'etiya-custom',
+  //           sticky: true,
+  //         });
+  //         this.router.navigateByUrl('/dashboard/customers/create-customer');
+  //       }
+  //     });
+  //   });
+  // }
+
+
+
+  getCustomers(id: number) {
+    this.customerService.getList().subscribe((response) => {
+      let matchCustomer = response.find((item) => {
+        return item.nationalityId == id;
+      });
+      if (matchCustomer) {
+        this.nationalityId = true;
+      } else {
+        this.nationalityId = false;
+        this.customerService.setDemographicInfoToStore(this.profileForm.value);
+        this.router.navigateByUrl('/dashboard/customers/list-address-info');
+      }
+    });
+  }
+
   goNextPage() {
     if (this.profileForm.valid) {
       this.isShow = false;
-      this.customerService.setDemographicInfoToStore(this.profileForm.value);
-      this.router.navigateByUrl('/dashboard/customers/list-address-info');
+      this.getCustomers(this.profileForm.value.nationalityId);
     } else {
       this.isShow = true;
     }
   }
 
-  // getAge(date: string): number {
-  //   let today = new Date();
-  //   let birthDate = new Date(date);
-  //   let age = today.getFullYear() - birthDate.getFullYear();
-  //   let month = today.getMonth() - birthDate.getMonth();
-  //   if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-  //     age--;
-  //     console.log(age, 'birthdate', birthDate);
-  //   }
-  //   return age;
-  // }
-  // ageCheck(controlName: string): ValidatorFn {
-  //   return (controls: AbstractControl) => {
-  //     const control = controls.get(controlName);
+  cancelChanges() {
+    this.messageService.add({
+      key: 'c',
+      sticky: true,
+      severity: 'warn',
+      detail: 'Your changes could not be saved. Are you sure?',
+    });
+  }
 
-  //     if (control?.errors && !control.errors['under18']) {
-  //       return null;
-  //     }
-  //     if (this.getAge(control?.value) <= 18) {
-  //       return { under18: true };
-  //     } else {
-  //       return null;
-  //     }
-  //   };
-  // }
 }

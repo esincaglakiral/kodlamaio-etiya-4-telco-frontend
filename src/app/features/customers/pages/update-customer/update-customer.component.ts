@@ -15,6 +15,12 @@ export class UpdateCustomerComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   maxDate = '2004-08-08';
+  isShow: Boolean = false;
+  nationalityId: Boolean = false;
+  under18: Boolean = false;
+  futureDate: Boolean = false;
+  today: Date = new Date();
+
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -24,10 +30,25 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomerById();
+    this.getCustomerById(); this.messageService.clearObserver.subscribe((data) => {
+      if (data == 'r') {
+        this.messageService.clear();
+      } else if (data == 'c') {
+        this.messageService.clear();
+        this.router.navigateByUrl(
+          '/dashboard/customers/customer-info/' + this.selectedCustomerId
+        );
+      }
+    });
+
   }
 
   createFormUpdateCustomer() {
+       console.log(this.customer.birthDate);
+    let bDate = new Date();
+    if (this.customer.birthDate) {
+      bDate = new Date(this.customer.birthDate);
+    }
     this.updateCustomerForm = this.formBuilder.group({
       firstName: [this.customer.firstName, Validators.required],
       middleName: [this.customer.middleName, Validators.required],
