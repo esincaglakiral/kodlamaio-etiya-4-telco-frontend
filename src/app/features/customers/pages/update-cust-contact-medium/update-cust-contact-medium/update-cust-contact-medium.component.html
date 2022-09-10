@@ -35,9 +35,27 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="email"
+                    maxlength="50"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerContactForm.controls['email'].errors
+                    }"
                   />
+                  <small
+                    *ngIf="
+                      isShow &&
+                      updateCustomerContactForm.controls['email'].errors
+                    "
+                    id="lastName-help"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 220px; margin-top: -15px"
+                  >
+                    E-mail must be valid e-mail address
+                  </small>
                 </div>
               </div>
+
               <div class="col-6 form-group">
                 <div class="form-group">
                   <label class="col-5" for="homePhone">Home Phone :</label>
@@ -46,6 +64,8 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="homePhone"
+                    (keypress)="isNumber($event)"
+                    maxlength="11"
                   />
                 </div>
               </div>
@@ -58,8 +78,26 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="mobilePhone"
+                    (keypress)="isNumber($event)"
+                    maxlength="11"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerContactForm.controls['mobilePhone'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="
+                    isShow &&
+                    updateCustomerContactForm.controls['mobilePhone'].errors
+                  "
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -15px"
+                >
+                  Required field can not be left blank
+                </small>
               </div>
               <div class="col-6">
                 <div class="form-group">
@@ -69,6 +107,8 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fax"
+                    (keypress)="isNumber($event)"
+                    maxlength="11"
                   />
                 </div>
               </div>
@@ -88,7 +128,7 @@
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button etiyaButton="clear" (click)="update()">SAVE</button>
+                <button etiyaButton="clear" (click)="Save()">SAVE</button>
               </div>
             </div>
           </div>
