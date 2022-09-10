@@ -104,7 +104,7 @@ export class CustomerAddressComponent implements OnInit {
     if (this.customer.addresses && this.customer.addresses?.length <= 1) {
       this.messageService.add({
         detail:
-          'Customer should have at least one address. You cannot delete this address',
+          'The address that you want to delete is a primary address. Please, change primary address then try again', //primary adres için
         key: 'etiya-warn',
       });
       return;
