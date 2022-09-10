@@ -22,7 +22,7 @@ export class CreateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   nationalityId: Boolean = false;
-  maxDate = '2004-08-08';
+  maxDate = new Date().setFullYear(new Date().getFullYear()-18)
   today: Date = new Date();
   under18: Boolean = false;
   futureDate: Boolean = false;
@@ -221,12 +221,5 @@ export class CreateCustomerComponent implements OnInit {
     }
   }
 
-  cancelChanges() {
-    this.messageService.add({
-      key: 'c',
-      sticky: true,
-      severity: 'warn',
-      detail: 'Your changes could not be saved. Are you sure?',
-    });
-  }
+  cancelChanges() {}
 }

@@ -43,7 +43,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 380px; margin-top: -20px"
                 >
-                  Please fill in the required fields
+                  This field cannot be empty.
                 </small>
               </div>
             </div>
@@ -93,7 +93,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 380px; margin-top: -20px"
                 >
-                  Please fill in the required fields
+                  This field cannot be empty.
                 </small>
               </div>
             </div>
@@ -112,7 +112,7 @@
                     type="date"
                     etiyaInput="dark"
                     formControlName="birthDate"
-                    [max]="today | date: 'yyyy-MM-dd'"
+                    [max]=" maxDate | date: 'yyyy-MM-dd'"
                     (blur)="onDateChange($event)"
                     [ngClass]="{
                       'invalid-input':
@@ -164,7 +164,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 380px; margin-top: 11px"
                 >
-                  Please fill in the required fields
+                  This field cannot be empty.
                 </small>
               </div>
             </div>
@@ -278,9 +278,13 @@
       <div class="d-flex justify-content-center">
         <div class="row mt-3 w-75">
           <div class="col-12 col-lg-6 d-flex justify-content-lg-start">
-            <button etiyaButton="clear" (click)="cancelChanges()">
-              CANCEL
-            </button>
+            <button
+                  etiyaButton="clear"
+                  routerLink="/dashboard/customers/customer-dashboard"
+                  (click)="cancelChanges()"
+                >
+                  CANCEL
+                </button>
           </div>
           <div class="col-12 col-lg-5 d-flex justify-content-lg-end">
             <button etiyaButton="clear" (click)="goNextPage()">NEXT</button>
