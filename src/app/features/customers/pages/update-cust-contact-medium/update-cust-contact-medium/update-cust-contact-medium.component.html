@@ -61,7 +61,7 @@
                   <label class="col-5" for="homePhone">Home Phone :</label>
                   <input
                     class="col-7"
-                    type="text "
+                    type="number "
                     etiyaInput="dark"
                     formControlName="homePhone"
                     (keypress)="isNumber($event)"
@@ -128,7 +128,7 @@
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button etiyaButton="clear" (click)="Save()">SAVE</button>
+                <button etiyaButton="clear" (click)="Save()" [disabled]="!updateCustomerContactForm.dirty">SAVE</button>
               </div>
             </div>
           </div>
