@@ -42,20 +42,23 @@ export class ListAddressInfoComponent implements OnInit {
   }
 
   removePopup(address: Address) {
-    // if (this.customer.addresses && this.customer.addresses?.length <= 1) {
-    //   alert('1 adres varsa silemezsin.');
-    //   return;
-    // }
+    if (this.customer.addresses && this.customer.addresses?.length <= 1) {
+      this.messageService.add({
+        detail:
+          'Customer should have at least one address. You cannot delete this address',
+        key: 'etiya-warn',
+      });
+      return;
+    }
     this.addressToDelete = address;
     this.messageService.add({
       key: 'c',
       sticky: true,
       severity: 'warn',
-      detail: 'Are you sure you want to delete?',
+      detail: 'Are you sure you want to delete the selected address?',
     });
   }
   remove() {
-    // this.customersService.removeAdress(this.addressToDelete);
     this.customersService.removeAdress(this.addressToDelete);
   }
 }
