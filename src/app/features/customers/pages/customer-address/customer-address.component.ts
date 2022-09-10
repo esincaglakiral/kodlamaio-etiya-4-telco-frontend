@@ -82,17 +82,47 @@ export class CustomerAddressComponent implements OnInit {
     );
   }
 
+  // removePopup(address: Address) {
+  //   this.addressToDelete = address;
+  //   this.messageService.add({
+  //     key: 'c',
+  //     sticky: true,
+  //     severity: 'warn',
+  //     detail: 'Are you sure you want to delete?',
+  //   });
+  // }
+
+  // remove() {
+  //   this.customerService.removeAdress(this.addressToDelete);
+  // }
+
+
+
+
+
   removePopup(address: Address) {
+    if (this.customer.addresses && this.customer.addresses?.length <= 1) {
+      this.messageService.add({
+        detail:
+          'Customer should have at least one address. You cannot delete this address',
+        key: 'etiya-warn',
+      });
+      return;
+    }
     this.addressToDelete = address;
     this.messageService.add({
       key: 'c',
       sticky: true,
       severity: 'warn',
-      detail: 'Are you sure you want to delete?',
+      detail: 'Your changes could not be saved. Are you sure?',
     });
   }
 
   remove() {
-    this.customerService.removeAdress(this.addressToDelete);
+    this.customerService
+      .removeAddress(this.addressToDelete, this.customer)
+      .subscribe((data) => {
+        this.getCustomerById();
+      });
   }
 }
