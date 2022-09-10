@@ -74,16 +74,16 @@ export class CustomersService {
 
         if (searchCustomer.firstName) {
           filteredCustomers = filteredCustomers.filter((item) =>
-            item
-              .firstName?.toLowerCase()
-              .includes(searchCustomer.firstName.toLowerCase())
+            item.firstName
+              ?.toLowerCase()
+              .startsWith(searchCustomer.firstName.toLowerCase())
           );
         }
         if (searchCustomer.lastName) {
           filteredCustomers = filteredCustomers.filter((item) =>
-            item
-              .lastName?.toLowerCase()
-              .includes(searchCustomer.lastName.toLowerCase())
+            item.lastName
+              ?.toLowerCase()
+              .startsWith(searchCustomer.lastName.toLowerCase())
           );
         }
         if (searchCustomer.orderNumber) {
@@ -120,7 +120,7 @@ export class CustomersService {
   addAddressInfoToStore(props: Address, customers: Customer) {
     const newAddress: Address = {
       ...props,
-      id: Math.floor(Math.random() * 10000)
+      id: Math.floor(Math.random() * 10000),
     };
     this.store.dispatch(addAddressInfo(newAddress));
   }

@@ -2503,6 +2503,41 @@
       },
       "billingAccounts": [],
       "id": 22
+    },
+    {
+      "customerId": 9999,
+      "firstName": "cdsaf",
+      "middleName": null,
+      "lastName": "dfdsxf",
+      "birthDate": "2020-02-03",
+      "gender": "Female",
+      "nationalityId": "48565876878",
+      "role": "individual",
+      "motherName": null,
+      "fatherName": null,
+      "addresses": [
+        {
+          "city": {
+            "id": 7,
+            "name": "Dallas"
+          },
+          "street": "dfgdh",
+          "flatNumber": "dfhdgh",
+          "description": "fdhdhg",
+          "id": 1,
+          "type": "[CustomerToAdd] Update Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "rdfgbdgfh@gmail.com",
+        "homePhone": 86767259498,
+        "mobilePhone": 48687644654,
+        "fax": 16954894984,
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "id": 23
     }
   ],
   "offers": [
