@@ -13,9 +13,7 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
-  isShow:Boolean=false
-  displayBasic!: boolean;
-
+  isShow!: boolean;
   constructor(
     private customersService: CustomersService,
     private router: Router,
@@ -31,13 +29,16 @@ export class AddContactMediumComponent implements OnInit {
   }
   createFormContactMedium() {
     this.contactForm = this.formBuilder.group({
-      email: [this.customer.contactMedium?.email, [Validators.email,Validators.required]],
-      homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
+      email: [
+        this.customer.contactMedium?.email,
+        [Validators.email, Validators.required],
+      ],
+      homePhone: [this.customer.contactMedium?.homePhone],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.pattern('^[0-9]{11}$'),Validators.required],
+        Validators.required,
       ],
-      fax: [this.customer.contactMedium?.fax, Validators.required],
+      fax: [this.customer.contactMedium?.fax],
     });
   }
 
@@ -50,41 +51,33 @@ export class AddContactMediumComponent implements OnInit {
     this.customersService.setContactMediumInfoToStore(this.contactForm.value);
   }
 
-  Save() {
-    if (this.contactForm.valid) {
-      this.isShow = false
-      this.saveCustomer()
-    }
-    else{
-      this.isShow = true
-      this.displayBasic = true;
-    }
-  }
-
   saveCustomer() {
-    this.saveContactMediumToStore();
-    this.customersService.add(this.customer).subscribe({
-      next: (data) => {
-        this.messageService.add({
-          detail: 'Sucsessfully added',
-          severity: 'success',
-          summary: 'Add',
-          key: 'etiya-custom',
-        });
-        this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
-      },
-      error: (err) => {
-        this.messageService.add({
-          detail: 'Error created',
-          severity: 'danger',
-          summary: 'Error',
-          key: 'etiya-custom',
-        });
-      },
-    });
+    if (this.contactForm.valid) {
+      this.saveContactMediumToStore();
+      this.customersService.add(this.customer).subscribe({
+        next: (data) => {
+          this.messageService.add({
+            detail: 'Sucsessfully added',
+            severity: 'success',
+            summary: 'Add',
+            key: 'etiya-custom',
+          });
+          this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+        },
+        error: (err) => {
+          this.messageService.add({
+            detail: 'Error created',
+            severity: 'danger',
+            summary: 'Error',
+            key: 'etiya-custom',
+          });
+        },
+      });
+    } else {
+      this.isShow = true;
+    }
   }
   isNumber(event: any): boolean {
-    console.log(event);
     const pattern = /[0-9]/;
     const char = String.fromCharCode(event.which ? event.which : event.keyCode);
     if (pattern.test(char)) return true;
@@ -92,7 +85,4 @@ export class AddContactMediumComponent implements OnInit {
     event.preventDefault();
     return false;
   }
-
-
-
 }

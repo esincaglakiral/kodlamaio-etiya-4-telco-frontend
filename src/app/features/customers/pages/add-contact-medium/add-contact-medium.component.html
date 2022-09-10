@@ -18,30 +18,19 @@
             <div class="col-12 col-lg-6">
               <div class="row e-customer-input">
                 <div class="col-12 col-lg-4 e-contact-col-center">
-                  <label for="first-name"
-                    >Email<span class="e-star">*</span>
+                  <label for="first-name">Email<span class="e-star">*</span>
                   </label>
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
-                  <input
-                    type="email"
-                    etiyaInput="dark"
-                    class="e-contact-input"
-                    formControlName="email"
-                    maxlength="50"
-                    [ngClass]="{
+                  <input type="email" etiyaInput="dark" class="e-contact-input" formControlName="email" [ngClass]="{
                       'invalid-input':
                         isShow && contactForm.controls['email'].errors
-                    }"
-                  />
+                    }" />
                 </div>
-                <small
-                  *ngIf="isShow && contactForm.controls['email'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 420px; margin-top: -5px"
-                >
-                  This Field can not be left blank!
+                <small *ngIf="isShow && contactForm.controls['email'].errors" class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-top: 11px; margin-left: 400px">
+                  Please enter a valid e-mail adress etiya@example.com for
+                  example.
                 </small>
               </div>
             </div>
@@ -51,69 +40,48 @@
                   <label for="middle-name">Home Phone </label>
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
-                  <input
-                    type="number"
-                    etiyaInput="dark"
-                    class="e-contact-input"
-                    formControlName="homePhone"
-                    (keypress)="isNumber($event)"
-                    onKeyPress="if(this.value.length==11) return false;"
-                  />
+                  <input type="text" etiyaInput="dark" (keypress)="isNumber($event)"
+                    onKeyPress="if(this.value.length==11) return false;" max="99999999999" appPhoneMask
+                    class="e-contact-input" formControlName="homePhone" />
                 </div>
               </div>
             </div>
             <div class="col-12 col-lg-6 mb-5">
               <div class="row e-customer-input">
                 <div class="col-12 col-lg-4 e-contact-col-center">
-                  <label for="last-name"
-                    >Mobile Phone<span class="e-star">*</span>
+                  <label for="last-name">Mobile Phone<span class="e-star">*</span>
                   </label>
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
-                  <input
-                    type="number"
-                    etiyaInput="dark"
-                    class="e-contact-input"
-                    formControlName="mobilePhone"
-                    (keypress)="isNumber($event)"
-                    onKeyPress="if(this.value.length==11) return false;"
-                    [ngClass]="{
+                  <input type="text" appPhoneMask (keypress)="isNumber($event)"
+                    onKeyPress="if(this.value.length==11) return false;" max="99999999999" etiyaInput="dark"
+                    class="e-contact-input" formControlName="mobilePhone" [ngClass]="{
                       'invalid-input':
                         isShow && contactForm.controls['mobilePhone'].errors
-                    }"
-                  />
+                    }" />
                 </div>
-                <small
-                  *ngIf="isShow && contactForm.controls['mobilePhone'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 420px; margin-top: -5px"
-                >
-                  This Field can not be left blank!
+                <small *ngIf="isShow && contactForm.controls['mobilePhone'].errors"
+                  class="p-error block ng-invalid ng-dirty" style="color: red; margin-top: 11px; margin-left: 400px">
+                  compulsory fields must be filled.
                 </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 mb-5">
               <div class="row e-customer-input">
                 <div class="col-12 col-lg-4 e-contact-col-center">
-                  <label for="birth-date">Fax </label>
+                  <label for="fax">Fax </label>
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
-                  <input
-                    type="number"
-                    etiyaInput="dark"
-                    class="e-contact-input"
-                    formControlName="fax"
-                    (keypress)="isNumber($event)"
-                    onKeyPress="if(this.value.length==11) return false;"
-                  />
+                  <input type="text" etiyaInput="dark" (keypress)="isNumber($event)"
+                    onKeyPress="if(this.value.length==11) return false;" max="99999999999" class="e-contact-input"
+                    formControlName="fax" />
                 </div>
               </div>
             </div>
           </div>
           <div class="row mt-2 e-contact-center">
             <div class="col-2">
-              <button etiyaButton="clear" style="width: 164px" (click)="Save()">
+              <button etiyaButton="clear" style="width: 164px" (click)="saveCustomer()">
                 Create
               </button>
             </div>
@@ -123,11 +91,8 @@
       <div class="e-contact-center">
         <div class="row w-75" style="margin-top: 100px">
           <div class="col-12 col-lg-6 d-flex justify-content-lg-start">
-            <button
-              etiyaButton="clear"
-              routerLink="/dashboard/customers/list-address-info"
-              (click)="goToPreviousPage()"
-            >
+            <button etiyaButton="clear" routerLink="/dashboard/customers/list-address-info"
+              (click)="goToPreviousPage()">
               Previous
             </button>
           </div>

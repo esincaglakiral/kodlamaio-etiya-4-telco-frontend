@@ -20,10 +20,8 @@ import { CustomerContactMediumComponent } from './pages/customer-contact-medium/
 import { OfferSelectionComponent } from './pages/offer-selection/offer-selection.component';
 import { AddCustomerAddressComponent } from './pages/add-customer-address/add-customer-address.component';
 import { CityModule } from '../city/city.module';
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-
-
 
 @NgModule({
   declarations: [
@@ -52,8 +50,7 @@ import { ButtonModule } from 'primeng/button';
     FormsModule,
     CityModule,
     DialogModule,
-    ButtonModule
-
+    ButtonModule,
   ],
 })
 export class CustomersModule {}

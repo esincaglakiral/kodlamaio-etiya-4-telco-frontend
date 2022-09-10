@@ -2538,6 +2538,95 @@
       "billingAccounts": [],
       "type": "[CustomerToAdd] Set Demographic Info",
       "id": 23
+    },
+    {
+      "customerId": 9999,
+      "firstName": "dsgsfgs",
+      "middleName": null,
+      "lastName": "dsff",
+      "birthDate": "2020-02-03",
+      "gender": "Female",
+      "nationalityId": 78678679568,
+      "role": "individual",
+      "motherName": null,
+      "fatherName": null,
+      "addresses": [
+        {
+          "city": {
+            "id": 2,
+            "name": "Los Angeles"
+          },
+          "street": "dfsg",
+          "flatNumber": 5688,
+          "description": "fdhdhdgh",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "sfhweo@gmail.com",
+        "homePhone": "(768) 686-87688",
+        "mobilePhone": "(467) 595-6796+",
+        "fax": "7+767886868",
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "id": 24
+    },
+    {
+      "customerId": 9999,
+      "role": "individual",
+      "addresses": [],
+      "contactMedium": {
+        "email": null,
+        "homePhone": null,
+        "mobilePhone": null,
+        "fax": null,
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "id": 25
+    },
+    {
+      "customerId": 9999,
+      "role": "individual",
+      "addresses": [],
+      "contactMedium": {
+        "email": "jsdbfkd@gmail.com",
+        "homePhone": "86786868666",
+        "mobilePhone": "45676868866",
+        "fax": "79786786666",
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "id": 26
+    },
+    {
+      "customerId": 9999,
+      "role": "individual",
+      "addresses": [
+        {
+          "city": {
+            "id": 3,
+            "name": "Chicago"
+          },
+          "street": "fbdcb",
+          "flatNumber": 4634,
+          "description": "zscdzvd",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "fgfgf@gmail.com",
+        "homePhone": "468678",
+        "mobilePhone": "646786786",
+        "fax": "876767",
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "id": 27
     }
   ],
   "offers": [

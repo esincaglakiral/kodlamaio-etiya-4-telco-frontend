@@ -24,12 +24,10 @@
               </tr>
             </thead>
             <tbody class="table-body">
-              <tr
-                *ngIf="
+              <tr *ngIf="
                   !customer.addresses || customer.addresses.length == 0;
                   else customerAddressList
-                "
-              >
+                ">
                 <th>Null</th>
                 <td>Null</td>
                 <td>Null</td>
@@ -39,14 +37,8 @@
                 <tr *ngFor="let address of customer.addresses">
                   <th style="display: flex">
                     <div>
-                      <button
-                        (click)="selectAddressId(address.id)"
-                        etiyaButton="edit"
-                      ></button>
-                      <button
-                        (click)="removePopup(address)"
-                        etiyaButton="remove"
-                      ></button>
+                      <button (click)="selectAddressId(address.id)" etiyaButton="edit"></button>
+                      <button (click)="removePopup(address)" etiyaButton="remove"></button>
                     </div>
                     <div style="margin-left: 50px">
                       {{ address.city.name }}
@@ -62,25 +54,16 @@
         </div>
       </div>
       <div class="e-new-address">
-        <button
-          etiyaButton="new-address"
-          routerLink="/dashboard/customers/add-address-info"
-        >
+        <button etiyaButton="new-address" routerLink="/dashboard/customers/add-address-info">
           <img src="./assets/img/add_new.png" alt="" />Add New Address
         </button>
       </div>
       <div class="e-buttons">
-        <button
-          etiyaButton="clear"
-          routerLink="/dashboard/customers/create-customer"
-        >
-          CANCEL
+        <button etiyaButton="clear" routerLink="/dashboard/customers/create-customer">
+          Previous
         </button>
-        <button
-          etiyaButton="clear"
-          routerLink="/dashboard/customers/contact-medium"
-          [disabled]="customer.addresses?.length === 0"
-        >
+        <button etiyaButton="clear" routerLink="/dashboard/customers/contact-medium"
+          [disabled]="customer.addresses?.length === 0">
           NEXT
         </button>
       </div>
