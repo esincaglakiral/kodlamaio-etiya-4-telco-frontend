@@ -22,16 +22,13 @@
                   </label>
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
-                  <input type="email" etiyaInput="dark" class="e-contact-input" formControlName="email" [ngClass]="{
-                      'invalid-input':
-                        isShow && contactForm.controls['email'].errors
-                    }" />
+                  <input type="text" formControlName="email" etiyaInput="dark"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                  </div>
                 </div>
-                <small *ngIf="isShow && contactForm.controls['email'].errors" class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-top: 11px; margin-left: 400px">
-                  Please enter a valid e-mail adress etiya@example.com for
-                  example.
-                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 mb-5">
