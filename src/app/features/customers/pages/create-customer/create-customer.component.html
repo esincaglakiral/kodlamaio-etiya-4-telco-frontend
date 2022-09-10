@@ -22,7 +22,8 @@
                   <label for="first-name">First Name* </label>
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
-                  <input type="text" etiyaInput="dark" formControlName="firstName" maxlength="50" [ngClass]="{
+                  <input type="text" etiyaInput="dark" formControlName="firstName" maxlength="50"
+                    (keydown.space)="$event.preventDefault();" [ngClass]="{
                       'invalid-input':
                         isShow && profileForm.controls['firstName'].errors
                     }" />
@@ -39,7 +40,8 @@
                   <label for="middle-name">Middle Name </label>
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
-                  <input type="text" etiyaInput="dark" formControlName="middleName" maxlength="50" />
+                  <input type="text" etiyaInput="dark" formControlName="middleName" maxlength="50"
+                    (keydown.space)="$event.preventDefault();" />
                 </div>
               </div>
             </div>
@@ -49,7 +51,8 @@
                   <label for="last-name">Last Name* </label>
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
-                  <input type="text" etiyaInput="dark" formControlName="lastName" maxlength="50" [ngClass]="{
+                  <input type="text" etiyaInput="dark" formControlName="lastName"
+                    (keydown.space)="$event.preventDefault();" maxlength="50" [ngClass]="{
                       'invalid-input':
                         isShow && profileForm.controls['lastName'].errors
                     }" />
@@ -76,7 +79,7 @@
                   style="color: red; margin-left: 220px; margin-top: -15px">
                   The customer cannot be under the age of 18.
                 </small>
-              
+
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -108,7 +111,8 @@
                   <label for="father-name">Father Name </label>
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
-                  <input type="text" etiyaInput="dark" formControlName="fatherName" maxlength="50" />
+                  <input type="text" etiyaInput="dark" formControlName="fatherName"
+                    (keydown.space)="$event.preventDefault();" maxlength="50" />
                 </div>
               </div>
             </div>
@@ -118,7 +122,8 @@
                   <label for="mother-name">Mother Name </label>
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
-                  <input type="text" etiyaInput="dark" formControlName="motherName" maxlength="50" />
+                  <input type="text" etiyaInput="dark" formControlName="motherName"
+                    (keydown.space)="$event.preventDefault();" maxlength="50" />
                 </div>
               </div>
             </div>

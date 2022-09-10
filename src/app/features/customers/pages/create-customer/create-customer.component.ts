@@ -22,12 +22,12 @@ export class CreateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   nationalityId: Boolean = false;
-  maxDate = new Date()
+  maxDate = new Date();
   today: Date = new Date();
   under18: Boolean = false;
   futureDate: Boolean = false;
-  
-  isBirthDate:Boolean=false;
+
+  isBirthDate: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +35,7 @@ export class CreateCustomerComponent implements OnInit {
     private customerService: CustomersService,
     private router: Router
   ) {
-    this.maxDate.setFullYear(new Date().getFullYear()-18)
+    this.maxDate.setFullYear(new Date().getFullYear() - 18);
     this.createCustomerModel$ = this.customerService.customerToAddModel$;
   }
 
@@ -130,14 +130,15 @@ export class CreateCustomerComponent implements OnInit {
   onDateChange(event: any) {
     this.isBirthDate = false;
     let date = new Date(event.target.value);
-    if (date.getFullYear() > this.maxDate.getFullYear() ||
-    date.getMonth() > this.maxDate.getMonth() ||
-    date.getDay() > this.maxDate.getDay()) {
+    if (
+      date.getFullYear() > this.maxDate.getFullYear() ||
+      date.getMonth() > this.maxDate.getMonth() ||
+      date.getDay() > this.maxDate.getDay()
+    ) {
       this.profileForm.get('birthDate')?.setValue('');
       this.isBirthDate = true;
     }
   }
-
 
   checkInvalid() {
     if (this.profileForm.invalid) {
