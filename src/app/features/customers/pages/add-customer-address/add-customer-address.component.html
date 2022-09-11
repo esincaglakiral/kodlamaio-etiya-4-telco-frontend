@@ -52,10 +52,19 @@
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
                     <input
-                      type="number"
-                      etiyaInput="dark"
-                      formControlName="flatNumber"
-                    />
+                    type="text"
+                    etiyaInput="dark"
+                    formControlName="flatNumber"
+                    (keypress)="isNumber($event)"
+                    onKeyPress="if(this.value.length==10) return false;"
+                     max="9999999999"
+                     min="0000000000"
+                    [ngClass]="{
+                      'e-invalid-input':
+                        isShow && addressForm.controls['flatNumber'].errors
+                    }"
+                  />
+                 
                   </div>
                 </div>
               </div>
@@ -67,11 +76,11 @@
                     </label>
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input
-                      type="text"
-                      etiyaInput="dark"
-                      formControlName="street"
-                    />
+                    <input type="text" etiyaInput="dark" formControlName="street"
+                    (keydown.space)="$event.preventDefault();" maxlength="50" [ngClass]="{
+                      'invalid-input':
+                        isShow && addressForm.controls['street'].errors
+                    }" />
                   </div>
                 </div>
               </div>
@@ -87,6 +96,7 @@
                       class="e-address-desc"
                       placeholder=""
                       formControlName="description"
+                      maxlength="250"
                     ></textarea>
                   </div>
                 </div>
@@ -94,7 +104,13 @@
             </div>
             <div class="row mt-2 d-flex justify-content-center">
               <div class="col-2">
-                <button etiyaButton="clear" (click)="save()">SAVE</button>
+                <button
+                etiyaButton="clear"
+                [disabled]="!this.addressForm.valid"
+                (click)="save()"
+              >
+                SAVE
+              </button>
               </div>
             </div>
           </form>

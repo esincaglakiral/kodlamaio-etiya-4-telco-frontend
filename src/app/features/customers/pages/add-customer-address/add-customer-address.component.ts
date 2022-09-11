@@ -19,6 +19,7 @@ export class AddCustomerAddressComponent implements OnInit {
   customer!: Customer;
   addressToUpdate!: Address;
   cityList!: City[];
+  isShow: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,7 +88,8 @@ export class AddCustomerAddressComponent implements OnInit {
 
   save() {
     if (this.addressToUpdate === undefined) this.add();
-    else this.update();
+    
+    else this.update();  this.router.navigateByUrl('/dashboard/customers/list-address-info');
   }
 
   add() {
@@ -111,5 +113,15 @@ export class AddCustomerAddressComponent implements OnInit {
     this.customerService
       .updateAddress(addressToUpdate, this.customer)
       .subscribe();
+  }
+
+  isNumber(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }
