@@ -137,11 +137,22 @@ export class AddAddressInfoComponent implements OnInit {
     });
   }
   cancelChanges() {
-    this.messageService.add({
-      key: 'c',
-      sticky: true,
-      severity: 'warn',
-      detail: 'Your changes could not be saved. Are you sure?',
-    });
+    // this.messageService.add({
+    //   key: 'c',
+    //   sticky: true,
+    //   severity: 'warn',
+    //   detail: 'Your changes could not be saved. Are you sure?',
+    // });
+    this.router.navigateByUrl('/dashboard/customers/list-address-info');
+  }
+
+  isNumber(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }

@@ -50,10 +50,19 @@
                   </div>
 
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input type="number" etiyaInput="dark" formControlName="flatNumber" [ngClass]="{
-                        'invalid-input':
-                          isShow && addressForm.controls['flatNumber'].errors
-                      }" />
+                    <input
+                    type="text"
+                    etiyaInput="dark"
+                    formControlName="flatNumber"
+                    (keypress)="isNumber($event)"
+                    onKeyPress="if(this.value.length==10) return false;"
+                     max="9999999999"
+                     min="0000000000"
+                    [ngClass]="{
+                      'e-invalid-input':
+                        isShow && addressForm.controls['flatNumber'].errors
+                    }"
+                  />
                   </div>
                   <small *ngIf="isShow && addressForm.controls['flatNumber'].errors"
                     class="p-error block ng-invalid ng-dirty" style="color: red; margin-left: 500px">
@@ -69,10 +78,11 @@
                     </label>
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input type="text" etiyaInput="dark" formControlName="street" [ngClass]="{
-                        'invalid-input':
-                          isShow && addressForm.controls['street'].errors
-                      }" />
+                    <input type="text" etiyaInput="dark" formControlName="street"
+                    (keydown.space)="$event.preventDefault();" maxlength="50" [ngClass]="{
+                      'invalid-input':
+                        isShow && addressForm.controls['street'].errors
+                    }" />
                   </div>
                   <small *ngIf="isShow && addressForm.controls['street'].errors"
                     class="p-error block ng-invalid ng-dirty" style="color: red; margin-left: 350px">
@@ -87,7 +97,7 @@
                     </label>
                   </div>
                   <div class="col-12 e-address-col-center">
-                    <textarea class="e-address-desc" placeholder="" formControlName="description" [ngClass]="{
+                    <textarea class="e-address-desc" placeholder="" formControlName="description" maxlength="250" [ngClass]="{
                         'invalid-input':
                           isShow && addressForm.controls['description'].errors
                       }"></textarea>
@@ -104,9 +114,15 @@
                 <button etiyaButton="clear" (click)="cancelChanges()">
                   CANCEL
                 </button>
-                <button etiyaButton="clear" style="margin-left: 875px" (click)="save()">
-                  SAVE
-                </button>
+               
+                <button
+                etiyaButton="clear"
+                style="margin-left: 875px"
+                [disabled]="!this.addressForm.valid"
+                (click)="save()"
+              >
+                SAVE
+              </button>
               </div>
             </div>
           </form>
