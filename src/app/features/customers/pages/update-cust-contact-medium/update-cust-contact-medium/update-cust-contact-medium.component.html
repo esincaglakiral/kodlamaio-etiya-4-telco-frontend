@@ -87,13 +87,9 @@
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button
-                etiyaButton="clear"
-                [disabled]="!this.updateCustomerContactForm.valid"
-                (click)="Save()"
-              >
-                SAVE
-              </button>
+                <button etiyaButton="clear" [disabled]="!this.updateCustomerContactForm.valid" (click)="Save()">
+                  UPDATE
+                </button>
               </div>
               this.updateCustomerContactForm.invalid
             </div>

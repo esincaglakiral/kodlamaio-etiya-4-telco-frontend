@@ -69,7 +69,7 @@ export class AddContactMediumComponent implements OnInit {
 
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.contactForm.value));
   }
-  saveCustomer() {
+  saveCustomer(customer: Customer) {
     if (this.contactForm.valid) {
       this.saveContactMediumToStore();
       this.customersService.add(this.customer).subscribe({
@@ -80,7 +80,8 @@ export class AddContactMediumComponent implements OnInit {
             summary: 'Add',
             key: 'etiya-custom',
           });
-          this.router.navigateByUrl('/dashboard/customers/customer-dashboard');  
+
+          this.router.navigateByUrl(`/customer-info/${customer.id}`);
         },
         error: (err) => {
           this.messageService.add({

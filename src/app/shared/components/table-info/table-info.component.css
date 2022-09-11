@@ -6,6 +6,7 @@
 
 ::ng-deep .table.e-table .table-body {
   background-color: #2a5183;
+  
 }
 
 ::ng-deep .table.e-table {
@@ -24,6 +25,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 19px;
+  
 }
 
 ::ng-deep .table.e-table .table-title th:first-child,

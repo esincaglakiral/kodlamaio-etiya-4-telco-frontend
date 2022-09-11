@@ -134,7 +134,9 @@
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
                   <input id="nationalityId" type="text" etiyaInput="dark" formControlName="nationalityId"
-                    onKeyPress="if(this.value.length==11) return false;" max="99999999999" min="00000000000" [ngClass]="{
+                    onKeyPress="if(this.value.length==11) return false;"
+                    onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}" max="99999999999"
+                    min="00000000000" [ngClass]="{
                       'invalid-input':
                         (isShow &&
                           profileForm.controls['nationalityId'].errors) ||
