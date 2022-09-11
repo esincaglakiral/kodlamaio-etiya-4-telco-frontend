@@ -31,7 +31,7 @@
             <div class="row d-flex justify-space-between align-items-center">
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="first-name">First Name:</label>
+                  <label class="col-5" for="first-name">First Name*:</label>
                   <input
                     class="col-7"
                     type="text"
@@ -54,7 +54,7 @@
 
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="lastName">Last Name:</label>
+                  <label class="col-5" for="lastName">Last Name*:</label>
                   <input
                     class="col-7"
                     type="text "
@@ -66,53 +66,22 @@
               <div class="col-6">
                 <div class="form-group">
                   <label class="col-5" for="birthDate">Birth Date*:</label>
-                  <input
-                    class="col-7"
-                    type="date"
-                    etiyaInput="dark"
-                    formControlName="birthDate"
-                    [max]="today | date: 'yyyy-MM-dd'"
-                    (blur)="onDateChange($event)"
-                    [ngClass]="{
+                  <input class="col-7" type="date" etiyaInput="dark" formControlName="birthDate"
+                    [max]=" maxDate | date: 'yyyy-MM-dd'" (blur)="onDateChange($event)" [ngClass]="{
                       'invalid-input':
-                        isShow &&
-                        updateCustomerForm.controls['birthDate'].errors &&
-                        !futureDate
-                    }"
-                  />
+                        isShow && updateCustomerForm.controls['birthDate'].errors
+                    }" />
                 </div>
-                <small
-                  *ngIf="
-                    isShow &&
-                    updateCustomerForm.controls['birthDate'].errors &&
-                    !futureDate &&
-                    !under18
-                  "
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  compulsory fields must be filled.
-                </small>
-                <small
-                  *ngIf="futureDate"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  Please enter a valid date of birth
-                </small>
-                <small
-                  *ngIf="under18"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  The customer cannot be under the age of 18.
-                </small>
+                <small *ngIf="isBirthDate" id="lastName-help" class="p-error block ng-invalid ng-dirty"
+                style="color: red; margin-left: 220px; margin-top: -15px">
+                The customer cannot be under the age of 18.
+              </small>
               </div>
               <div class="col-6">
                 <div
                   class="form-group d-flex justify-content-lg-start align-items-center"
                 >
-                  <label class="col-5" for="gender">Gender:</label>
+                  <label class="col-5" for="gender">Gender*:</label>
                   <div class="e-dropdown col-7 p-0">
                     <select
                       name="gender"
@@ -121,7 +90,7 @@
                       formControlName="gender"
                     >
                       <option selected value="Female">Female</option>
-                      <option value="Erkek">Erkek</option>
+                      <option value="Male">Male</option>
                     </select>
                   </div>
                 </div>
@@ -205,7 +174,13 @@
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button etiyaButton="clear" (click)="update()">SAVE</button>
+                <button
+                etiyaButton="clear"
+                [disabled]="!this.updateCustomerForm.valid"
+                (click)="updateCustomer()"
+              >
+                SAVE
+              </button>
               </div>
             </div>
           </div>
