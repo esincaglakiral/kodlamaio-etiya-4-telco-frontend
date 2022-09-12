@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<app-main-layout [layoutTitle]="'Address'">
+<app-main-layout [layoutTitle]="'Customer Info'">
   <div class="bar-menu">
     <app-bar-menu></app-bar-menu>
   </div>
@@ -73,16 +73,11 @@
             <label class="e-frame-label">{{ customer.nationalityId }}</label>
           </div>
         </div>
-        <!-- <button etiyaButton="remove"></button> -->
         <button
-        etiyaButton="remove"
-        (click)="removeCustomerPopup(customer)"
-      ></button>
-        <button
-          etiyaButton="edit"
-          (click)="getCustomerId(customer)"
-          routerLink="/dashboard/customers/update-customer"
+          etiyaButton="remove"
+          (click)="removeCustomerPopup(customer)"
         ></button>
+        <button etiyaButton="edit" (click)="getCustomerId(customer)"></button>
       </div>
     </div>
   </div>
