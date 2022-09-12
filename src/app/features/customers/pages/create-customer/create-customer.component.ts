@@ -132,8 +132,9 @@ export class CreateCustomerComponent implements OnInit {
     let date = new Date(event.target.value);
     if (
       date.getFullYear() > this.maxDate.getFullYear() ||
-      date.getMonth() > this.maxDate.getMonth() ||
-      date.getDate() > this.maxDate.getDate()
+      (date.getMonth() > this.maxDate.getMonth() &&
+        date.getDate() > this.maxDate.getDate() &&
+        date.getFullYear() > this.maxDate.getFullYear())
     ) {
       this.profileForm.get('birthDate')?.setValue('');
       this.isBirthDate = true;
