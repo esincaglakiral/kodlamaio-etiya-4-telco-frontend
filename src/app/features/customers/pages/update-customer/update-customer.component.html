@@ -22,45 +22,26 @@
     <div class="p-5"></div>
     <div class="e-customer-content">
       <div class="d-flex justify-content-center">
-        <form
-          *ngIf="updateCustomerForm"
-          [formGroup]="updateCustomerForm"
-          class="p-4"
-        >
+        <form *ngIf="updateCustomerForm" [formGroup]="updateCustomerForm" class="p-4">
           <div class="row">
             <div class="row d-flex justify-space-between align-items-center">
               <div class="col-6">
                 <div class="form-group">
                   <label class="col-5" for="first-name">First Name*:</label>
-                  <input
-                    class="col-7"
-                    type="text"
-                    etiyaInput="dark"
-                    formControlName="firstName"
-                  />
+                  <input class="col-7" type="text" etiyaInput="dark" formControlName="firstName" #firstName />
                 </div>
               </div>
               <div class="col-6 form-group">
                 <div class="form-group">
                   <label class="col-5" for="middleName">Middle Name:</label>
-                  <input
-                    class="col-7"
-                    type="text "
-                    etiyaInput="dark"
-                    formControlName="middleName"
-                  />
+                  <input class="col-7" type="text " etiyaInput="dark" formControlName="middleName" #middleName />
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="form-group">
                   <label class="col-5" for="lastName">Last Name*:</label>
-                  <input
-                    class="col-7"
-                    type="text "
-                    etiyaInput="dark"
-                    formControlName="lastName"
-                  />
+                  <input class="col-7" type="text " etiyaInput="dark" formControlName="lastName" #lastName />
                 </div>
               </div>
               <div class="col-6">
@@ -70,25 +51,18 @@
                     [max]=" maxDate | date: 'yyyy-MM-dd'" (blur)="onDateChange($event)" [ngClass]="{
                       'invalid-input':
                         isShow && updateCustomerForm.controls['birthDate'].errors
-                    }" />
+                    }" #birthDate />
                 </div>
                 <small *ngIf="isBirthDate" id="lastName-help" class="p-error block ng-invalid ng-dirty"
-                style="color: red; margin-left: 220px; margin-top: -15px">
-                The customer cannot be under the age of 18.
-              </small>
+                  style="color: red; margin-left: 220px; margin-top: -15px">
+                  The customer cannot be under the age of 18.
+                </small>
               </div>
               <div class="col-6">
-                <div
-                  class="form-group d-flex justify-content-lg-start align-items-center"
-                >
+                <div class="form-group d-flex justify-content-lg-start align-items-center">
                   <label class="col-5" for="gender">Gender*:</label>
                   <div class="e-dropdown col-7 p-0">
-                    <select
-                      name="gender"
-                      id="gender"
-                      class="p-2"
-                      formControlName="gender"
-                    >
+                    <select name="gender" id="gender" class="p-2" formControlName="gender" #gender>
                       <option selected value="Female">Female</option>
                       <option value="Male">Male</option>
                     </select>
@@ -99,62 +73,35 @@
               <div class="col-6">
                 <div class="form-group">
                   <label class="col-5" for="fatherName"> Father Name:</label>
-                  <input
-                    class="col-7"
-                    type="text"
-                    etiyaInput="dark"
-                    formControlName="fatherName"
-                  />
+                  <input class="col-7" type="text" etiyaInput="dark" formControlName="fatherName" #fatherName />
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group">
                   <label class="col-5" for="motherName">Mother Name:</label>
-                  <input
-                    class="col-7"
-                    type="text"
-                    etiyaInput="dark"
-                    formControlName="motherName"
-                  />
+                  <input class="col-7" type="text" etiyaInput="dark" formControlName="motherName" #motherName />
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group">
                   <label class="col-5" for="nationalId">Nationality ID*:</label>
-                  <input
-                    min="10000000000"
-                    max="99999999999"
-                    (keypress)="isValid($event)"
-                    onKeyPress="if(this.value.length==11) return false;"
-                    class="col-7"
-                    type="text"
-                    etiyaInput="dark"
-                    formControlName="nationalityId"
-                    [ngClass]="{
+                  <input min="10000000000" max="99999999999" (keypress)="isValid($event)"
+                    onKeyPress="if(this.value.length==11) return false;" class="col-7" type="text" etiyaInput="dark"
+                    #nationalityId formControlName="nationalityId" [ngClass]="{
                       'invalid-input':
                         isShow &&
                         updateCustomerForm.controls['nationalityId'].errors
-                    }"
-                  />
+                    }" />
                 </div>
-                <small
-                  *ngIf="
+                <small *ngIf="
                   isShow && updateCustomerForm.controls['nationalityId'].errors?.['required']
-                  "
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 200px; margin-top: -20px"
-                >
+                  " id="lastName-help" class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 200px; margin-top: -20px">
                   Nationality ID cannot be less than 11 digits!
                 </small>
-                <small
-                  *ngIf="
+                <small *ngIf="
                     isShow && updateCustomerForm.controls['nationalityId'].errors?.['pattern']
-                  "
-                  id="nationalityId-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  etiyaError="error-text"
-                >
+                  " id="nationalityId-help" class="p-error block ng-invalid ng-dirty" etiyaError="error-text">
                   You must entered 11 digits
                 </small>
               </div>
@@ -164,23 +111,25 @@
           <div class="d-flex justify-content-center">
             <div style="width: 1125px" class="row p-0 pt-4">
               <div class="col-6 d-flex justify-content-lg-start">
-                <button
-                  etiyaButton="clear"
-                  routerLink="/dashboard/customers/customer-info/{{
+                <button etiyaButton="clear" routerLink="/dashboard/customers/customer-info/{{
                     customer.id
-                  }}"
-                >
+                  }}">
                   CANCEL
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button
-                etiyaButton="clear"
-                [disabled]="!this.updateCustomerForm.valid"
-                (click)="updateCustomer()"
-              >
-                SAVE
-              </button>
+                <button etiyaButton="clear" (click)="updateCustomer()" [disabled]="
+                 firstName.value === customer.firstName &&
+                 middleName.value === customer.middleName &&
+                 lastName.value === customer.lastName &&
+                 fatherName.value === customer.fatherName &&
+                 motherName.value === customer.motherName  &&
+                 nationalityId.value == customer.nationalityId?.toString() &&
+                 gender.value == customer.gender &&
+                 !isDateChanged
+                 ">
+                  SAVE
+                </button>
               </div>
             </div>
           </div>

@@ -15,14 +15,13 @@ export class UpdateCustomerComponent implements OnInit {
   updateCustomerForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
- 
+
   isShow: Boolean = false;
   nationalityId: Boolean = false;
   today: Date = new Date();
   under18: Boolean = false;
   futureDate: Boolean = false;
   maxDate = new Date();
-
 
   isBirthDate: Boolean = false;
 
@@ -95,8 +94,9 @@ export class UpdateCustomerComponent implements OnInit {
     let date = new Date(event.target.value);
     if (
       date.getFullYear() > this.maxDate.getFullYear() ||
-      date.getMonth() > this.maxDate.getMonth() ||
-      date.getDay() > this.maxDate.getDay()
+      (date.getMonth() > this.maxDate.getMonth() &&
+        date.getDate() > this.maxDate.getDate() &&
+        date.getFullYear() > this.maxDate.getFullYear())
     ) {
       this.updateCustomerForm.get('birthDate')?.setValue('');
       this.isBirthDate = true;
@@ -129,7 +129,6 @@ export class UpdateCustomerComponent implements OnInit {
   //   }
   // }
 
-
   updateCustomer() {
     this.isShow = false;
     const customer: Customer = Object.assign(
@@ -149,7 +148,6 @@ export class UpdateCustomerComponent implements OnInit {
     });
   }
 
-
   checkInvalid() {
     if (this.updateCustomerForm.invalid) {
       this.isShow = true;
@@ -161,7 +159,7 @@ export class UpdateCustomerComponent implements OnInit {
       });
       return;
     }
-     let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
     let age = this.today.getFullYear() - date.getFullYear();
     if (age < 18) {
       this.under18 = true;
@@ -177,7 +175,6 @@ export class UpdateCustomerComponent implements OnInit {
     else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
   }
 
-  
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
       let matchCustomer = response.find((item) => {
@@ -203,5 +200,18 @@ export class UpdateCustomerComponent implements OnInit {
 
     event.preventDefault();
     return false;
+  }
+
+  get isDateChanged(): boolean {
+    let value = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    // EN BÜYÜK TRABZON
+    let birthDate = new Date();
+    if (this.customer.birthDate) birthDate = new Date(this.customer.birthDate);
+
+    return (
+      birthDate.getDate() != value.getDate() ||
+      birthDate.getFullYear() != value.getFullYear() ||
+      birthDate.getMonth() != value.getMonth()
+    );
   }
 }

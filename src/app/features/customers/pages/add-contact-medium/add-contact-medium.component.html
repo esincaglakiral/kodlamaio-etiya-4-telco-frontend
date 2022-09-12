@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
                   <input type="text" formControlName="email" etiyaInput="dark"
-                    [ngClass]="{ 'is-invalid': f.email.errors }" />
+                    [ngClass]="{ 'is-invalid': f.email.errors }" #mobilePhone />
                   <div *ngIf="f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">Email is required</div>
                     <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -40,7 +40,7 @@
                   <input type="text" etiyaInput="dark" (keypress)="isNumber($event)"
                     onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}"
                     onKeyPress="if(this.value.length==11) return false;" max="99999999999" appPhoneMask
-                    class="e-contact-input" formControlName="homePhone" />
+                    class="e-contact-input" formControlName="homePhone" #homePhone />
                 </div>
               </div>
             </div>
@@ -74,15 +74,18 @@
                   <input type="text" etiyaInput="dark" (keypress)="isNumber($event)"
                     onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}"
                     onKeyPress="if(this.value.length==11) return false;" max="99999999999" class="e-contact-input"
-                    formControlName="fax" />
+                    formControlName="fax" #fax />
                 </div>
               </div>
             </div>
           </div>
           <div class="row mt-2 e-contact-center">
             <div class="col-2">
-              <button etiyaButton="clear" style="width: 164px" [disabled]="!this.contactForm.valid"
-                (click)="saveCustomer()">
+              <button etiyaButton="clear" style="width: 164px" [disabled]="!this.contactForm.valid" [disabled]="
+              
+                  mobilePhone.value.length < 10 &&
+                  homePhone.value.length < 10 &&
+                  fax.value.length < 10 " (click)="saveCustomer()">
                 Create
               </button>
             </div>
