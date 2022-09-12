@@ -262,10 +262,51 @@ export class CustomersService {
       ...customer,
       billingAccounts: [
         ...(customer.billingAccounts || []),
-        { ...billingAccount, id: Math.floor(Math.random() * 10000) },
+        { ...billingAccount, id: Math.floor(Math.random() * 1000) },
       ],
     };
     console.log(newCustomer);
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+
+  removeBillingAccount(
+    billingAccountToDelete: BillingAccount,
+    customer: Customer
+  ): Observable<Customer> {
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newBillingAccount = customer.billingAccounts?.filter(
+      (bill) => bill.id != billingAccountToDelete.id
+    );
+    newCustomer.billingAccounts = newBillingAccount;
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+
+  
+
+  updateBillingAccount(
+    billingAccountToUpdate: BillingAccount,
+    customer: Customer
+  ): Observable<Customer> {
+    console.log(billingAccountToUpdate.id);
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newBillingAccount = customer.billingAccounts?.findIndex(
+      (billing) => billing.id === billingAccountToUpdate.id
+    ) as number;
+    if (newCustomer.billingAccounts) {
+      newCustomer.billingAccounts![newBillingAccount] = billingAccountToUpdate;
+    }
+
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
       newCustomer
