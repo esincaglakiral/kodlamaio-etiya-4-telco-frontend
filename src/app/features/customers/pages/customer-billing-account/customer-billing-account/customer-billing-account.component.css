@@ -32,8 +32,8 @@
 }
 
 .e-customer-content1 table {
-  border: 2px solid #f58220 !important;
-  color: #fff !important;
+  border: 2px solid #f58220 ;
+  color: #fff;
 }
 .table-title {
   background-color: #191847;
@@ -55,4 +55,15 @@
 
 ::ng-deep .main-box {
   height: auto !important;
+}
+
+.invalid-input {
+  border-color: red!important;
+  color: red !important;  
+}
+
+small{
+  font-weight: 200!important;
+  font-size: 25px!important;
+  color: red
 }

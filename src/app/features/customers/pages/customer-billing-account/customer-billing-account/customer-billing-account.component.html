@@ -28,6 +28,11 @@
                   type="text-area"
                   etiyaInput="dark"
                   formControlName="accountName"
+                  maxlength="100"
+                  [ngClass]="{
+                    'invalid-input':
+                      isValid && accountForm.controls['accountName'].errors
+                  }"
                 />
               </div>
             </div>
@@ -45,9 +50,21 @@
                 <textarea
                   class="e-address-desc"
                   placeholder=""
-                  formControlName="accountDescription"
+                  formControlName="description"
+                  maxlength="100"
+                  [ngClass]="{
+                    'invalid-input':
+                      isValid && accountForm.controls['description'].errors
+                  }"
                 ></textarea>
               </div>
+              <small
+                *ngIf="isValid && accountForm.controls['description'].errors"
+                class="p-error block ng-invalid ng-dirty"
+                style="margin-left: 500px; margin-top: -5px"
+              >
+                Required fields can not be left blank
+              </small>
             </div>
           </div>
         </div>
@@ -59,7 +76,12 @@
         <div class="e-customer-content1">
           <div>
             <div class="row w-100">
-              <table class="e-table table table-bordered table-hidden">
+              <table
+                class="e-table table table-bordered table-hidden"
+                [ngClass]="{
+                  'invalid-input': billingAdress.length == 0 && isValid
+                }"
+              >
                 <thead>
                   <tr class="table-title">
                     <th>City</th>
@@ -107,7 +129,9 @@
         <div class="d-flex justify-content-center">
           <div class="row mt-5 w-75">
             <div class="col-12 col-lg-6 d-flex justify-content-lg-start">
-              <button etiyaButton="clear" routerLink="recipes">CANCEL</button>
+              <button etiyaButton="clear" (click)="goToPreviousPage()">
+                CANCEL
+              </button>
             </div>
             <div class="col-12 col-lg-5 d-flex justify-content-lg-end">
               <button etiyaButton="clear" (click)="add()">Create</button>
@@ -130,11 +154,15 @@
                       name="gender"
                       id="gender"
                       formControlName="city"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShownError && addressForm.controls['city'].errors
+                      }"
                     >
-                      <option selected disabled hidden value="">
+                      <option selected disabled hidden [value]="0">
                         Choose a city
                       </option>
-                      <option *ngFor="let city of cityList" [ngValue]="city">
+                      <option *ngFor="let city of cityList" [value]="city.id">
                         {{ city.name }}
                       </option>
                     </select>
@@ -154,6 +182,11 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="flatNumber"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShownError &&
+                        addressForm.controls['flatNumber'].errors
+                    }"
                   />
                 </div>
               </div>
@@ -170,6 +203,10 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="street"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShownError && addressForm.controls['street'].errors
+                    }"
                   />
                 </div>
               </div>
@@ -186,8 +223,29 @@
                     class="e-address-desc"
                     placeholder=""
                     formControlName="description"
+                    maxlength="250"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShownError &&
+                        addressForm.controls['description'].errors
+                    }"
                   ></textarea>
                 </div>
+                <small
+                  *ngIf="
+                    isShownError &&
+                    (addressForm.controls['description'].errors ||
+                      (isShownError && addressForm.controls['street'].errors) ||
+                      (isShownError &&
+                        addressForm.controls['flatNumber'].errors) ||
+                      (isShownError && addressForm.controls['city'].errors))
+                  "
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 400px; margin-top: 5px"
+                >
+                  Requirements field can not be left blank
+                </small>
               </div>
             </div>
           </div>
