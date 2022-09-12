@@ -22,6 +22,7 @@ import { AddCustomerAddressComponent } from './pages/add-customer-address/add-cu
 import { CityModule } from '../city/city.module';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { CustomerBillingAccountUpdateComponent } from './pages/customer-billing-account-update/customer-billing-account-update.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ButtonModule } from 'primeng/button';
     CustomerContactMediumComponent,
     OfferSelectionComponent,
     AddCustomerAddressComponent,
+    CustomerBillingAccountUpdateComponent,
   ],
   imports: [
     CommonModule,
