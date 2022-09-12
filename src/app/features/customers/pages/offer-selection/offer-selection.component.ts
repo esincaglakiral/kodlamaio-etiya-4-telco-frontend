@@ -60,8 +60,11 @@ export class OfferSelectionComponent implements OnInit {
       );
     });
   }
+
   addBasket(offer: Offer) {
-    if (this.offerList === undefined) this.offerList = [];
+    if (this.offerList === undefined) {
+      this.offerList = [];
+    }
     this.offerList.push(offer);
   }
   saveBasket() {
@@ -78,7 +81,9 @@ export class OfferSelectionComponent implements OnInit {
   getOfferCount(offer: Offer): number {
     let count: number = 0;
     this.offerList.forEach((offerInList) => {
-      if (offerInList.id === offer.id) count++;
+      if (offerInList.id === offer.id) {
+        count++;
+      }
     });
     return count;
   }
@@ -104,7 +109,7 @@ export class OfferSelectionComponent implements OnInit {
 
   createSearchCampaignsForm() {
     this.searchCampaignForm = this.formBuilder.group({
-      selectedId: [''],
+      selectedId1: [''],
       campaignName: [''],
       campaignId: [''],
     });
@@ -132,5 +137,15 @@ export class OfferSelectionComponent implements OnInit {
       .subscribe((data) => {
         this.catalogOffersList = data;
       });
+  }
+
+  isNumber(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
   }
 }
