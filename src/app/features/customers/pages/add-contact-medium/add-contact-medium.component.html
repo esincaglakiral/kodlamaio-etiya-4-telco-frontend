@@ -23,8 +23,8 @@
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
                   <input type="text" formControlName="email" etiyaInput="dark"
-                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    [ngClass]="{ 'is-invalid': f.email.errors }" />
+                  <div *ngIf="f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">Email is required</div>
                     <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                   </div>

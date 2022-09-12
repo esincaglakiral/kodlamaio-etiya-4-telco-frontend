@@ -133,7 +133,7 @@ export class CreateCustomerComponent implements OnInit {
     if (
       date.getFullYear() > this.maxDate.getFullYear() ||
       date.getMonth() > this.maxDate.getMonth() ||
-      date.getDay() > this.maxDate.getDay()
+      date.getDate() > this.maxDate.getDate()
     ) {
       this.profileForm.get('birthDate')?.setValue('');
       this.isBirthDate = true;
@@ -215,6 +215,7 @@ export class CreateCustomerComponent implements OnInit {
   }
 
   goNextPage() {
+    console.log(this.profileForm)
     if (this.profileForm.valid) {
       this.isShow = false;
       this.getCustomers(this.profileForm.value.nationalityId);
