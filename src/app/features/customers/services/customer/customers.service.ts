@@ -117,10 +117,11 @@ export class CustomersService {
     this.store.dispatch(updateAddressInfo(newAddress));
   }
 
-  addAddressInfoToStore(props: Address, customers: Customer) {
+  addAddressInfoToStore(props: Address, customer: Customer) {
     const newAddress: Address = {
       ...props,
       id: Math.floor(Math.random() * 10000),
+      isMain: customer.addresses && customer.addresses?.length == 0? true: false
     };
     this.store.dispatch(addAddressInfo(newAddress));
   }
@@ -173,12 +174,13 @@ export class CustomersService {
   add(customer: Customer): Observable<Customer> {
     const newCustomer: Customer = {
       ...customer,
+      customerId: Math.floor(Math.random() * 1000),
       addresses: customer.addresses?.map((item, index) => ({
         ...item,
         id: index + 1,
       })),
       role: 'individual',
-      customerId: 9999,
+      
     };
     return this.httpClient.post<Customer>(this.apiControllerUrl, newCustomer);
   }
@@ -211,11 +213,13 @@ export class CustomersService {
   addAddress(address: Address, customer: Customer): Observable<Customer> {
     const newCustomer: Customer = {
       ...customer,
+      
       addresses: [
         ...(customer.addresses || []),
         { ...address, id: Math.floor(Math.random() * 10000) },
       ],
     };
+    console.log(newCustomer)
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
       newCustomer
@@ -289,8 +293,6 @@ export class CustomersService {
       newCustomer
     );
   }
-
-  
 
   updateBillingAccount(
     billingAccountToUpdate: BillingAccount,

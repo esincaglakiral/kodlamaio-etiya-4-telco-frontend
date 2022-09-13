@@ -41,7 +41,10 @@ export class AddContactMediumComponent implements OnInit {
       homePhone: [this.customer.contactMedium?.homePhone],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        Validators.required,
+        [Validators.required,
+          Validators.min(11), 
+          Validators.max(20)
+        ]
       ],
       fax: [this.customer.contactMedium?.fax],
     });

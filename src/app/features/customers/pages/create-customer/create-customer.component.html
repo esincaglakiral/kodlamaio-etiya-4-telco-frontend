@@ -79,6 +79,11 @@
                   style="color: red; margin-left: 220px; margin-top: -15px">
                   The customer cannot be under the age of 18.
                 </small>
+                <br>
+                <small *ngIf="!isBirthDate && isShow && profileForm.controls['birthDate'].errors" id="lastName-help" class="p-error block ng-invalid ng-dirty"
+                style="color: red; margin-left: 220px; margin-top: -15px">
+                Birthdate should be valid
+              </small>
 
               </div>
             </div>

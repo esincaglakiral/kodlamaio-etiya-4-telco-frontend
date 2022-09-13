@@ -23,21 +23,33 @@
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
                     <div class="e-dropdown">
-                      <select etiyaInput="dark" name="gender" id="gender" formControlName="city" [ngClass]="{
+                      <select
+                        etiyaInput="dark"
+                        name="gender"
+                        id="gender"
+                        formControlName="city"
+                        [ngClass]="{
                           'invalid-input':
                             isShow && addressForm.controls['city'].errors
-                        }">
+                        }"
+                      >
                         <option selected disabled hidden value="">
                           Select a city
                         </option>
-                        <option *ngFor="let city of cityList" [ngValue]="city.id">
+                        <option
+                          *ngFor="let city of cityList"
+                          [ngValue]="city.id"
+                        >
                           {{ city.name }}
                         </option>
                       </select>
                     </div>
                   </div>
-                  <small *ngIf="isShow && addressForm.controls['city'].errors" class="p-error block ng-invalid ng-dirty"
-                    style="color: red; margin-left: 350px">
+                  <small
+                    *ngIf="isShow && addressForm.controls['city'].errors"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 350px"
+                  >
                     compulsory fields must be filled.
                   </small>
                 </div>
@@ -45,21 +57,32 @@
               <div class="col-12 col-xl-7">
                 <div class="row e-address-input">
                   <div class="col-12 col-lg-4 e-address-col-center">
-                    <label for="flatNumber">House/Flat Number<span class="e-star">*</span>
+                    <label for="flatNumber"
+                      >House/Flat Number<span class="e-star">*</span>
                     </label>
                   </div>
 
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input type="text" etiyaInput="dark" formControlName="flatNumber"
+                    <input
+                      type="text"
+                      etiyaInput="dark"
+                      formControlName="flatNumber"
                       onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}"
-                      (keydown.space)="$event.preventDefault();" onKeyPress="if(this.value.length==10) return false;"
-                      max="9999999999" min="0000000000" [ngClass]="{
-                      'e-invalid-input':
-                        isShow && addressForm.controls['flatNumber'].errors
-                    }" />
+                      (keydown.space)="$event.preventDefault()"
+                      onKeyPress="if(this.value.length==10) return false;"
+                      max="9999999999"
+                      min="0000000000"
+                      [ngClass]="{
+                        'e-invalid-input':
+                          isShow && addressForm.controls['flatNumber'].errors
+                      }"
+                    />
                   </div>
-                  <small *ngIf="isShow && addressForm.controls['flatNumber'].errors"
-                    class="p-error block ng-invalid ng-dirty" style="color: red; margin-left: 500px">
+                  <small
+                    *ngIf="isShow && addressForm.controls['flatNumber'].errors"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 500px"
+                  >
                     compulsory fields must be filled.
                   </small>
                 </div>
@@ -68,18 +91,29 @@
               <div class="col-12 col-xl-5">
                 <div class="row e-address-input">
                   <div class="col-12 col-lg-4 e-address-col-center">
-                    <label for="street">Street<span class="e-star">*</span>
+                    <label for="street"
+                      >Street<span class="e-star">*</span>
                     </label>
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input type="text" etiyaInput="dark" formControlName="street" onKeyPress="if(this.value.length==50)"
-                      (keydown.space)="$event.preventDefault();" maxlength="50" [ngClass]="{
-                      'invalid-input':
-                        isShow && addressForm.controls['street'].errors
-                    }" />
+                    <input
+                      type="text"
+                      etiyaInput="dark"
+                      formControlName="street"
+                      onKeyPress="if(this.value.length==50)"
+                      (keydown.space)="$event.preventDefault()"
+                      maxlength="50"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['street'].errors
+                      }"
+                    />
                   </div>
-                  <small *ngIf="isShow && addressForm.controls['street'].errors"
-                    class="p-error block ng-invalid ng-dirty" style="color: red; margin-left: 350px">
+                  <small
+                    *ngIf="isShow && addressForm.controls['street'].errors"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 350px"
+                  >
                     compulsory fields must be filled.
                   </small>
                 </div>
@@ -87,19 +121,29 @@
               <div class="col-12">
                 <div class="row mb-1">
                   <div class="col-12 e-address-col-center">
-                    <label for="address-description">Address Description<span class="e-star">*</span>
+                    <label for="address-description"
+                      >Address Description<span class="e-star">*</span>
                     </label>
                   </div>
                   <div class="col-12 e-address-col-center">
-                    <textarea class="e-address-desc" placeholder=""
-                      onKeyPress="if(this.value.length==250) return false;" (keydown.space)="$event.preventDefault();"
-                      formControlName="description" maxlength="250" [ngClass]="{
+                    <textarea
+                      class="e-address-desc"
+                      placeholder=""
+                      onKeyPress="if(this.value.length==250) return false;"
+                      (keydown.space)="$event.preventDefault()"
+                      formControlName="description"
+                      maxlength="250"
+                      [ngClass]="{
                         'invalid-input':
                           isShow && addressForm.controls['description'].errors
-                      }"></textarea>
+                      }"
+                    ></textarea>
                   </div>
-                  <small *ngIf="isShow && addressForm.controls['description'].errors"
-                    class="p-error block ng-invalid ng-dirty" style="color: red">
+                  <small
+                    *ngIf="isShow && addressForm.controls['description'].errors"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red"
+                  >
                     compulsory fields must be filled.
                   </small>
                 </div>
@@ -111,7 +155,11 @@
                   CANCEL
                 </button>
 
-                <button etiyaButton="clear" style="margin-left: 875px" (click)="save()">
+                <button
+                  etiyaButton="clear"
+                  style="margin-left: 875px"
+                  (click)="save()"
+                >
                   SAVE
                 </button>
               </div>
