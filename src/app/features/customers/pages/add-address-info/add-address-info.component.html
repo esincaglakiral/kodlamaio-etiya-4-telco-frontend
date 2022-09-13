@@ -50,8 +50,10 @@
                   </div>
 
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input type="text" etiyaInput="dark" formControlName="flatNumber" (keypress)="isNumber($event)"
-                      onKeyPress="if(this.value.length==10) return false;" max="9999999999" min="0000000000" [ngClass]="{
+                    <input type="text" etiyaInput="dark" formControlName="flatNumber"
+                      onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}"
+                      (keydown.space)="$event.preventDefault();" onKeyPress="if(this.value.length==10) return false;"
+                      max="9999999999" min="0000000000" [ngClass]="{
                       'e-invalid-input':
                         isShow && addressForm.controls['flatNumber'].errors
                     }" />
@@ -90,8 +92,8 @@
                   </div>
                   <div class="col-12 e-address-col-center">
                     <textarea class="e-address-desc" placeholder=""
-                      onKeyPress="if(this.value.length==250) return false;" formControlName="description"
-                      maxlength="250" [ngClass]="{
+                      onKeyPress="if(this.value.length==250) return false;" (keydown.space)="$event.preventDefault();"
+                      formControlName="description" maxlength="250" [ngClass]="{
                         'invalid-input':
                           isShow && addressForm.controls['description'].errors
                       }"></textarea>
@@ -109,8 +111,7 @@
                   CANCEL
                 </button>
 
-                <button etiyaButton="clear" style="margin-left: 875px" [disabled]="!this.addressForm.valid"
-                  (click)="save()">
+                <button etiyaButton="clear" style="margin-left: 875px" (click)="save()">
                   SAVE
                 </button>
               </div>

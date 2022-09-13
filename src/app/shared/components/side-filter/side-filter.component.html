@@ -46,6 +46,7 @@
 
       <label class="e-label">ORDER NUMBER</label>
       <input type="text" etiyaInput="dark" formControlName="orderNumber" (keypress)="isNumber($event)"
+        (keydown.space)="$event.preventDefault()" onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}"
         onKeyPress="if(this.value.length==8) return false;" max="99999999" #orderNumber />
     </form>
   </div>

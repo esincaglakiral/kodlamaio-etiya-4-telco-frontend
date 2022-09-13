@@ -26,12 +26,7 @@
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
                     <div class="e-dropdown">
-                      <select
-                        etiyaInput="dark"
-                        name="gender"
-                        id="gender"
-                        formControlName="city"
-                      >
+                      <select etiyaInput="dark" name="gender" id="gender" formControlName="city">
                         <option selected disabled hidden [value]="0">
                           Choose a city
                         </option>
@@ -46,38 +41,28 @@
               <div class="col-12 col-xl-7">
                 <div class="row e-address-input">
                   <div class="col-12 col-lg-4 e-address-col-center">
-                    <label for="flatNumber"
-                      >House/Flat Number<span class="e-star">*</span>
+                    <label for="flatNumber">House/Flat Number<span class="e-star">*</span>
                     </label>
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
-                    <input
-                    type="text"
-                    etiyaInput="dark"
-                    formControlName="flatNumber"
-                    (keypress)="isNumber($event)"
-                    onKeyPress="if(this.value.length==10) return false;"
-                     max="9999999999"
-                     min="0000000000"
-                    [ngClass]="{
+                    <input type="text" etiyaInput="dark" formControlName="flatNumber" (keypress)="isNumber($event)"
+                      onKeyPress="if(this.value.length==10) return false;" max="9999999999" min="0000000000" [ngClass]="{
                       'e-invalid-input':
                         isShow && addressForm.controls['flatNumber'].errors
-                    }"
-                  />
-                 
+                    }" />
+
                   </div>
                 </div>
               </div>
               <div class="col-12 col-xl-5">
                 <div class="row e-address-input">
                   <div class="col-12 col-lg-4 e-address-col-center">
-                    <label for="street"
-                      >Street<span class="e-star">*</span>
+                    <label for="street">Street<span class="e-star">*</span>
                     </label>
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
                     <input type="text" etiyaInput="dark" formControlName="street"
-                    (keydown.space)="$event.preventDefault();" maxlength="50" [ngClass]="{
+                      (keydown.space)="$event.preventDefault();" maxlength="50" [ngClass]="{
                       'invalid-input':
                         isShow && addressForm.controls['street'].errors
                     }" />
@@ -87,30 +72,21 @@
               <div class="col-12">
                 <div class="row mb-1">
                   <div class="col-12 e-address-col-center">
-                    <label for="address-description"
-                      >Address Description<span class="e-star">*</span>
+                    <label for="address-description">Address Description<span class="e-star">*</span>
                     </label>
                   </div>
                   <div class="col-12 e-address-col-center">
-                    <textarea
-                      class="e-address-desc"
-                      placeholder=""
-                      formControlName="description"
-                      maxlength="250"
-                    ></textarea>
+                    <textarea class="e-address-desc" placeholder="" formControlName="description"
+                      maxlength="250"></textarea>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row mt-2 d-flex justify-content-center">
               <div class="col-2">
-                <button
-                etiyaButton="clear"
-                [disabled]="!this.addressForm.valid"
-                (click)="save()"
-              >
-                SAVE
-              </button>
+                <button etiyaButton="clear" [disabled]="!this.addressForm.valid" (click)="save()">
+                  SAVE
+                </button>
               </div>
             </div>
           </form>
