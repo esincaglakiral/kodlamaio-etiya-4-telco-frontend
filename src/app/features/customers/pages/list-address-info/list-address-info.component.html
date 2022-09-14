@@ -44,7 +44,7 @@
                       <label class="form-check-label" for="flexRadioDefault1">
                       </label>
                       <button (click)="selectAddressId(address.id)" etiyaButton="edit"></button>
-                      <button (click)="removePopup(address)" etiyaButton="remove"></button>
+                      <button (click)="removePopup(address)" etiyaButton="remove"  *ngIf="!address.isMain"></button>
                     </div>
                     <div style="margin-left: 50px">
                       {{ address.city.name }}
