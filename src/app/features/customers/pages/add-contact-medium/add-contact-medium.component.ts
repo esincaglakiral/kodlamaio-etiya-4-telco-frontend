@@ -13,9 +13,8 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
-  isShow!: Boolean;
-  isFax!: Boolean;
-  isPhoneNumber!: Boolean;
+  isShow!: boolean;
+  submitted = false;
   constructor(
     private customersService: CustomersService,
     private router: Router,
@@ -32,21 +31,19 @@ export class AddContactMediumComponent implements OnInit {
   createFormContactMedium() {
     this.contactForm = this.formBuilder.group({
       email: [
-        this.customer.contactMedium?.email,
-        [Validators.email, Validators.required],
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          // Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
       ],
-      homePhone: [
-        this.customer.contactMedium?.homePhone,
-        [Validators.pattern('^[0-9]{10}$')],
-      ],
+      homePhone: [this.customer.contactMedium?.homePhone],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.required, Validators.pattern('^[0-9]{10}$')],
+        [Validators.required],
       ],
-      fax: [
-        this.customer.contactMedium?.fax,
-        [Validators.pattern('^[0-9]{7}$')],
-      ],
+      fax: [this.customer.contactMedium?.fax],
     });
   }
 
@@ -58,7 +55,20 @@ export class AddContactMediumComponent implements OnInit {
   saveContactMediumToStore() {
     this.customersService.setContactMediumInfoToStore(this.contactForm.value);
   }
+  get f() {
+    return this.contactForm.controls;
+  }
 
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.contactForm.invalid) {
+      return;
+    }
+
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.contactForm.value));
+  }
   saveCustomer() {
     console.log(this.contactForm);
     if (this.contactForm.valid) {

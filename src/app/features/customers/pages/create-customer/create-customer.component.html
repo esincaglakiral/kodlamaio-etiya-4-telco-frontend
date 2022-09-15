@@ -80,10 +80,10 @@
                   The customer cannot be under the age of 18.
                 </small>
                 <br>
-                <small *ngIf="!isBirthDate && isShow && profileForm.controls['birthDate'].errors" id="lastName-help" class="p-error block ng-invalid ng-dirty"
-                style="color: red; margin-left: 220px; margin-top: -15px">
-                Birthdate should be valid
-              </small>
+                <small *ngIf="!isBirthDate && isShow && profileForm.controls['birthDate'].errors" id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty" style="color: red; margin-left: 220px; margin-top: -15px">
+                  Birthdate should be valid
+                </small>
 
               </div>
             </div>
@@ -139,7 +139,7 @@
                 </div>
                 <div class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center">
                   <input id="nationalityId" type="text" etiyaInput="dark" formControlName="nationalityId"
-                    onKeyPress="if(this.value.length==11) return false;"
+                    onKeyPress="if(this.value.length==11) return false;" (keypress)="isNumber($event)"
                     onkeydown="if(event.ctrlKey && event.keyCode==86){return false;}" max="99999999999"
                     min="00000000000" [ngClass]="{
                       'invalid-input':
@@ -171,7 +171,7 @@
             </button>
           </div>
           <div class="col-12 col-lg-5 d-flex justify-content-lg-end">
-            <button etiyaButton="clear" (click)="goNextPage()" id="next-btn" >NEXT</button>
+            <button etiyaButton="clear" (click)="goNextPage()" id="next-btn">NEXT</button>
           </div>
         </div>
       </div>
