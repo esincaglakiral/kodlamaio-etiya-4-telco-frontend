@@ -13,8 +13,9 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
-  isShow!: boolean;
-  submitted = false;
+  isShow!: Boolean;
+  isFax!: Boolean;
+  isPhoneNumber!: Boolean;
   constructor(
     private customersService: CustomersService,
     private router: Router,
@@ -31,22 +32,21 @@ export class AddContactMediumComponent implements OnInit {
   createFormContactMedium() {
     this.contactForm = this.formBuilder.group({
       email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          // Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-        ],
+        this.customer.contactMedium?.email,
+        [Validators.email, Validators.required],
       ],
-      homePhone: [this.customer.contactMedium?.homePhone],
+      homePhone: [
+        this.customer.contactMedium?.homePhone,
+        [Validators.pattern('^[0-9]{10}$')],
+      ],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.required,
-          Validators.min(11), 
-          Validators.max(20)
-        ]
+        [Validators.required, Validators.pattern('^[0-9]{10}$')],
       ],
-      fax: [this.customer.contactMedium?.fax],
+      fax: [
+        this.customer.contactMedium?.fax,
+        [Validators.pattern('^[0-9]{7}$')],
+      ],
     });
   }
 
@@ -58,22 +58,11 @@ export class AddContactMediumComponent implements OnInit {
   saveContactMediumToStore() {
     this.customersService.setContactMediumInfoToStore(this.contactForm.value);
   }
-  get f() {
-    return this.contactForm.controls;
-  }
 
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.contactForm.invalid) {
-      return;
-    }
-
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.contactForm.value));
-  }
   saveCustomer() {
+    console.log(this.contactForm);
     if (this.contactForm.valid) {
+      this.isShow = false;
       this.saveContactMediumToStore();
       this.customersService.add(this.customer).subscribe({
         next: (data) => {
@@ -83,8 +72,9 @@ export class AddContactMediumComponent implements OnInit {
             summary: 'Add',
             key: 'etiya-custom',
           });
-
-          this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+          this.router.navigateByUrl(
+            `/dashboard/customers/customer-info/${data.id}`
+          );
         },
         error: (err) => {
           this.messageService.add({

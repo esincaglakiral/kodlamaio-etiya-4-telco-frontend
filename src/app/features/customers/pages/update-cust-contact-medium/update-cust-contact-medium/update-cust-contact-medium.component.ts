@@ -18,8 +18,7 @@ export class UpdateCustContactMediumComponent implements OnInit {
   updateCustomerContactForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
-  isShow:Boolean=false
-
+  isShow: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,17 +30,34 @@ export class UpdateCustContactMediumComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomerById();
+    this.messageService.clearObserver.subscribe((data) => {
+      if (data == 'r') {
+        this.messageService.clear();
+      } else if (data == 'c') {
+        this.messageService.clear();
+        this.router.navigateByUrl(
+          '/dashboard/customers/customer-contact-medium/' +
+            this.selectedCustomerId
+        );
+      }
+    });
   }
 
   createFormUpdateContactCustomer() {
     this.updateCustomerContactForm = this.formBuilder.group({
-      email: [this.customer.contactMedium?.email,[Validators.email,Validators.required]],
-      homePhone: [this.customer.contactMedium?.homePhone],
+      email: [
+        this.customer.contactMedium?.email,
+        [Validators.email, Validators.required],
+      ],
+      homePhone: [
+        this.customer.contactMedium?.homePhone,
+        Validators.pattern('^[0-9]{10}$'),
+      ],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.pattern('^[0-9]{11}$'),Validators.required]
+        [Validators.required, Validators.pattern('^[0-9]{10}$')],
       ],
-      fax: [this.customer.contactMedium?.fax],
+      fax: [this.customer.contactMedium?.fax, Validators.pattern('^[0-9]{7}$')],
     });
   }
   getCustomerById() {
@@ -65,47 +81,35 @@ export class UpdateCustContactMediumComponent implements OnInit {
         });
     }
   }
-
-  Save() {
-    if (this.updateCustomerContactForm.valid) {
-      this.isShow = false
-      this.update()
-      this.router.navigateByUrl(
-        `/dashboard/customers/customer-contact-medium/${this.customer.id}`
-      );
-    }
-    else{
-      this.isShow = true
-    }
-  
-  }
-
   update() {
     if (this.updateCustomerContactForm.invalid) {
-      this.messageService.add({
-        detail: 'Please fill required areas!',
-        severity: 'danger',
-        summary: 'error',
-        key: 'etiya-custom',
-      });
-      return;
+      this.isShow = true;
+    } else {
+      this.isShow = false;
+      this.customersService
+        .updateContactMedium(
+          this.updateCustomerContactForm.value,
+          this.customer
+        )
+        .subscribe(() => {
+          this.router.navigateByUrl(
+            `/dashboard/customers/customer-contact-medium/${this.customer.id}`
+          );
+          this.messageService.add({
+            detail: 'Sucsessfully updated',
+            severity: 'success',
+            summary: 'Update',
+            key: 'etiya-custom',
+          });
+        });
     }
-    this.customersService
-      .updateContactMedium(this.updateCustomerContactForm.value, this.customer)
-      .subscribe(() => {
-        this.router.navigateByUrl(
-          `/dashboard/customers/customer-contact-medium/${this.customer.id}`
-        );
-      });
   }
-
-  isNumber(event: any): boolean {
-    console.log(event);
-    const pattern = /[0-9]/;
-    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
-    if (pattern.test(char)) return true;
-
-    event.preventDefault();
-    return false;
+  cancelChanges() {
+    this.messageService.add({
+      key: 'c',
+      sticky: true,
+      severity: 'warn',
+      detail: 'Your changes could not be saved. Are you sure?',
+    });
   }
 }
